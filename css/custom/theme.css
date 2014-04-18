@@ -1,0 +1,101 @@
+body {
+	font: 10px sans-serif;
+	cursor: default;
+}
+
+html {
+	background-color: #eee;
+}
+
+/* MAP SKINS */
+
+#map_canvas path {
+	fill: #aaa;
+	stroke: #fff;
+	stroke-width: .5px;
+	stroke-linejoin: round;
+}
+
+#countries .active {
+	fill: #d42b71;
+}
+
+#countries :hover {
+	fill: #d42b71;
+}
+
+/* DONUT */
+.arc path {
+  stroke: #eee;//rgba(255,255,255,1);
+  stroke-width: 2px;
+}
+
+g .arc {
+  cursor: pointer;
+    pointer-events: all;
+}
+
+g .arc:hover {
+  //fill-opacity: .7;
+}
+
+g .arc:selected {
+  fill-opacity: .7;
+}
+.donut_hover {
+	fill: #ffffff;
+	width: 400px;
+	white-space: nowrap;
+	font: 13px "Helvetica",Arial;
+	font-weight: 400;
+	text-align: center;
+	padding: 6px 2px 7px 2px;
+	text-anchor: middle;
+}
+
+
+g rect:hover {
+  fill: brown;
+  fill-opacity: .8;
+}
+
+.legend rect:hover, .legend rect:selected {
+  fill: brown;
+  fill-opacity: .8;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.sparkline {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 4px;
+}
+
+.sparkcircle {
+  fill: #ffffff;
+  stroke: none;
+}
+
+/* CIRCLE HOVER */
+
+.circle_hover {
+	width: 100px;
+	white-space: pre;
+	font: 11px "Helvetica",Arial;
+	font-weight: 400;
+	text-align: center;
+	padding: 6px 2px 7px 2px;
+}
+
+
+.country_text {
+	width: 100%;
+	font: 10px "Helvetica",Arial;
+	font-weight: 700;
+	text-align: center;
+	padding: 2px 0 4px 0;
+	color: #444;
+}

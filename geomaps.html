@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/custom/theme.css">	
+	<!-- Javascript Libraries -->
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/topojson.v1.min.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/d3.geo.projection.v0.min.js"></script>
+	
+
+
+	<!-- Custom JS Modules -->
+	<script src="js/custom/utils.js"></script>
+	<script async src="js/custom/map_topo.js"></script>	
+	<script async src="js/custom/donut_selector.js" ></script>
+	<script async src="js/custom/circle_hover.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.searchbutton').click(function() {
+				address = ""
+				if($(this).attr('id') == 'search_button')
+					address = document.getElementById('search_bar').value
+	    			searchAddress(address, function(latlon){
+	    			//alert(latlon[0]);
+	    		});
+	 		});
+	 });
+	</script>
+</head>
+<body>
+	<!-- 
+     <div id='menu'>
+		<button type="submit" id="locate" value="" class="searchbutton" style='width:28px; margin-left: 4px; float: right;'>
+          		<img alt="Locate" src="http://nyc.pediacities.com/images/a/a0/Icon_locate_black.png" height="18px" style="margin-top:1px;">
+        </button>
+		<input type="submit" value="Search" id="search_button" class="searchbutton" />
+		<input type="text" name="userInput" id="search_bar"  class="searchbox" placeholder="Search Address..."/>  
+	</div>
+	-->
+	
+	<!-- A nicer header should go here -->
+	<div id='header' style="font-size:24px;top:20px;left:20px;position: absolute;">
+				Aid Data/World bank Visualization (Prototype)
+				<br/>
+				<div style="font-size:10px;top:0px;left:320px;position: relative;">
+				by 
+                <a href="http://www.linkedin.com/in/ahmedshabbir" target="_blank">Ahmed Shabbir</a>
+                &nbsp&&nbsp
+                <a href="http://www.linkedin.com/pub/aykut-simsek/38/b70/27" target="_blank">Aykut Simsek</a>
+            	</div>
+    </div>
+	<div id='map_canvas' style="top:70px;left:50px;position: absolute;"></div>
+	<div id='donut_selector' style="top:5px;left:760px;position: absolute;"></div>
+	<div id='circle_hover' style="top:400px;left:10px;position: absolute;"></div>
+</body>
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/custom/theme.css">	
+	<!-- Javascript Libraries -->
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/jquery.tools.min.js"></script>
+	
+
+
+	<!-- Custom JS Modules -->
+	<script async src="js/custom/utils.js"></script>
+	<script async src="js/custom/glyph.js"></script>
+	<script async src="js/custom/map_doreen.js"></script>
+	<script async src="js/custom/donut_selector.js" ></script>
+	
+
+	<script async src="js/custom/circle_hover.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.searchbutton').click(function() {
+				address = ""
+				if($(this).attr('id') == 'search_button')
+					address = document.getElementById('search_bar').value
+	    			searchAddress(address, function(latlon){
+	    		});
+	 		});
+			
+			
+	 });
+	</script>
+</head>
+<body>
+
+	<!-- A nicer header should go here -->
+	<div id='header' style="font-size:23px;color:#666;top:10px;left:8px;position: absolute;">
+				Aid Data/World Bank Visualization
+				<br/>
+				<div style="font-size:10px;top:0px;left:175px;position: relative;color:#666;">
+				by 
+                <a href="http://www.linkedin.com/in/ahmedshabbir" alt="Ahmed Shabbir" target="_blank" style="color:#666;">Ahmed Shabbir</a>
+                &nbsp&&nbsp
+                <a href="http://www.linkedin.com/pub/aykut-simsek/38/b70/27" alt="Aykut Simsek" target="_blank" style="color:#666;">Aykut Simsek</a>
+            	</div>
+    </div>
+    <div id='sample_glyph' style="top:12px;left:1140px;position: absolute;  border-radius: 10px;"></div>
+	<div id='map_canvas' style="top:56px;left:183px;position: absolute;  border-radius: 10px;"></div>
+	<div id='donut_selector' style="top:45px;left:10px;position: absolute;"></div>
+	<div id='circle_hover' style="top:215px;left: 5px;position: absolute;"></div>
+</body>
+

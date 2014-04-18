@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <style type="text/css">
+ .donut_hover {
+	fill: #ffffff;
+	width: 400px;
+	white-space: nowrap;
+	font: 18px "Helvetica",Arial;
+	font-weight: 400;
+	text-align: center;
+	padding: 6px 2px 7px 2px;
+	text-anchor: middle;
+}
+</style>
+<script src="../js/d3.v3.min.js"></script>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="glyph.js" ></script>
+<script type="text/javascript">
+	$(function(){ 
+		var values = [{"value":64,"norm_value":.8},{"value":1000000,"norm_value":.5}];
+ 		half_circle("#circle_hover",values);
+ 		values = [{"value":32,"norm_value":.4},{"value":1000000,"norm_value":.5}];
+ 		half_circle("#circle_hover2",values);
+ 	});
+</script>
+</head>
+
+<body>
+	<div id='circle_hover' style="position: absolute;"></div>
+	<div id='circle_hover2' style="left:200px;position: absolute;"></div>
+</body>
+</html>
