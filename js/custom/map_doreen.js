@@ -31,6 +31,7 @@
 	function drawDoreen(sortorder) 
 	{
 		d3.select("#countrycontainer").remove();
+		d3.select("#glyph_sample").remove();
 		var timer = setTimeout(function() {
 			var width = 1078;
 			var height = 604;
@@ -225,18 +226,7 @@
 			  });
 
 			});				
-		//	var t = setTimeout(function(){
-		//		$(".ttip").tooltip({
-		//		   // tweak the position
-		//		   offset: [10, 2],
-		// 
-		//		   // use the "slide" effect
-		//		   effect: 'slide'
-		// 
-		//		// add dynamic plugin with optional configuration for bottom edge
-		//		}).dynamic({ bottom: { direction: 'down', bounce: true } });
-		//		
-		//	} , 2000);
+		
  	
 		}, 700);
 	}
