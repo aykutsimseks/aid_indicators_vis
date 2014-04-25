@@ -52,11 +52,14 @@
     </div>
 	<div id="reasondiv" style="top:12px;left:550px;position: absolute;  border-radius: 10px;">	
 	</div>
-	<div style="top:12px;left:800px;position: absolute;  border-radius: 10px;">
-		<select id="dropselect">
-		  <option value="-population" selected="selected">population</option>
-		  <option value="country">Country Name</option>
-		  <option value="-totalaid">totalaid</option>
+		<div style="top:212px;left:10px;position: absolute;font: 10px 'Helvetica',Arial;font-weight: 800">
+		Sorted by:
+		<select id="dropselect" class="dropselect">
+		  <option value="country" selected="selected">Country Name</option>
+		  <option value="-population">Population</option>
+		  <option value="-totalaid">Total Aid</option>
+		  <option value="-totalaid">Aid Per Capita</option>
+		  <option value="-indicator">Indicator</option>
 		</select>
 	</div>
     <div id='sample_glyph' style="top:12px;left:1140px;position: absolute;  border-radius: 10px;"></div>
