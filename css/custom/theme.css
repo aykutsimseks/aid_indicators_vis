@@ -7,21 +7,30 @@ html {
 	background-color: #eee;
 }
 
-/* MAP SKINS */
+/* DROPDOWN */
 
-#map_canvas path {
-	fill: #aaa;
-	stroke: #fff;
-	stroke-width: .5px;
-	stroke-linejoin: round;
-}
-
-#countries .active {
-	fill: #d42b71;
-}
-
-#countries :hover {
-	fill: #d42b71;
+.dropselect {
+	position: relative;
+	-webkit-appearance: button;
+    -moz-appearance: button;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-padding-end: 20px;
+    -moz-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -moz-padding-start: 2px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, .1);
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding: 2px 34px 2px 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    background: url(../../images/dropDownArrow.png) no-repeat right #eee;
+    background-size:20px 20px;
 }
 
 /* DONUT */
@@ -78,19 +87,6 @@ g rect:hover {
   fill: #ffffff;
   stroke: none;
 }
-
-/* CIRCLE HOVER */
-
-.circle_hover {
-	width: 100px;
-	white-space: pre;
-	font: 11px "Helvetica",Arial;
-	font-weight: 400;
-	text-align: center;
-	padding: 6px 2px 7px 2px;
-}
-
-
 .country_text {
 	width: 100%;
 	font: 10px "Helvetica",Arial;
