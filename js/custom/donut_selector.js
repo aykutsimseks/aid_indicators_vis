@@ -168,6 +168,8 @@ $(function(){
       				d3.select(this)
       					.style("fill-opacity", 0.3)
       					.style("fill", "#000")
+						drawDoreen($('#dropselect').val() , d.data.purpose);
+						
       			})
       		
       		// SPARK LINE

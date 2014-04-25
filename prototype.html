@@ -18,24 +18,23 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			var _reason = "none";
+			drawDoreen($('#dropselect').val() , _reason );
+			
+			
+			
+			$('#dropselect').change( function(){
+				drawDoreen($('#dropselect').val() , _reason);
+			});
 			$('.searchbutton').click(function() {
 				address = ""
 				if($(this).attr('id') == 'search_button')
 					address = document.getElementById('search_bar').value
-	    			searchAddress(address, function(latlon){
-	    		});
-	 		});
-			
-			var sortorder = $('#dropselect').val();
-			
-			
-			$('#dropselect').change( function(){
-				sortorder = $('#dropselect').val();
-				drawDoreen(sortorder);
+					searchAddress(address, function(latlon){
+				});
 			});
-			
-			drawDoreen(sortorder);
 	 });
+	
 	</script>
 </head>
 <body>
@@ -53,6 +52,8 @@
 				
 				
     </div>
+	<div id="reasondiv" style="top:12px;left:550px;position: absolute;  border-radius: 10px;">	
+	</div>
 	<div style="top:12px;left:800px;position: absolute;  border-radius: 10px;">
 		<select id="dropselect">
 		  <option value="-population" selected="selected">population</option>
