@@ -185,18 +185,24 @@
 					.attr("id", divname ); 
 					
 					count ++;
-					console.log(count);
 					var country_text = rec.append('div')
 		      							.attr('class', 'country_text')
 		      							.style('top','11px')
 				  						.style("position" , "absolute")
 		      							.text(i.country);
-					var upper = i.all_aid_per_capita;
-					var upperfactor = (i.all_aid_per_capita  / max_per_cap);
+					var upper = i.population;
+					var upperfactor = (i.all_aid_per_capita  / max_per_cap).toFixed(0);
 					
 					var lower = i.all_aid_per_capita;
-					var lowerfactor = (i.all_aid_per_capita  / max_per_cap)
+					var lowerfactor = (i.all_aid_per_capita  / max_per_cap).toFixed(0);
 					
+					console.log(upper);
+					console.log(upperfactor);
+					
+					console.log(lower);
+					console.log(lowerfactor);
+					
+					//working on this right now
 					var values = [
 						{"value":upper,"norm_value": upperfactor},
 						{"value":lower,"norm_value":lowerfactor}

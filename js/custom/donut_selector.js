@@ -222,8 +222,6 @@ $(function(){
 							
         					console.log(df);
         					selected_year = df.Date;
-        					//alert(JSON.stringify(df));
-        					//year_text.text(df.Date);
     	 })
 
 });
