@@ -194,7 +194,7 @@
 					var upperfactor = (i.all_aid_per_capita  / max_per_cap).toFixed(0);
 					
 					var lower = i.all_aid_per_capita;
-					var lowerfactor = (i.all_aid_per_capita  / max_per_cap).toFixed(0);
+					var lowerfactor = (i.population  / max_pop).toFixed(0);
 					
 					console.log(upper);
 					console.log(upperfactor);
