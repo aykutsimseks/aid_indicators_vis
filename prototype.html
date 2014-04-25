@@ -11,11 +11,11 @@
 	<!-- Custom JS Modules -->
 	<script async src="js/custom/utils.js"></script>
 	<script async src="js/custom/glyph.js"></script>
-	<script async src="js/custom/map_doreen.js"></script>
+	<script src="js/custom/map_doreen.js"></script>
 	<script async src="js/custom/donut_selector.js" ></script>
-	
-
 	<script async src="js/custom/circle_hover.js" ></script>
+	
+	
 	<script type="text/javascript">
 		$(function(){
 			$('.searchbutton').click(function() {
@@ -26,7 +26,15 @@
 	    		});
 	 		});
 			
+			var sortorder = $('#dropselect').val();
 			
+			
+			$('#dropselect').change( function(){
+				sortorder = $('#dropselect').val();
+				drawDoreen(sortorder);
+			});
+			
+			drawDoreen(sortorder);
 	 });
 	</script>
 </head>
@@ -42,7 +50,16 @@
                 &nbsp&&nbsp
                 <a href="http://www.linkedin.com/pub/aykut-simsek/38/b70/27" alt="Aykut Simsek" target="_blank" style="color:#666;">Aykut Simsek</a>
             	</div>
+				
+				
     </div>
+	<div style="top:12px;left:800px;position: absolute;  border-radius: 10px;">
+		<select id="dropselect">
+		  <option value="-population" selected="selected">population</option>
+		  <option value="country">Country Name</option>
+		  <option value="-totalaid">totalaid</option>
+		</select>
+	</div>
     <div id='sample_glyph' style="top:12px;left:1140px;position: absolute;  border-radius: 10px;"></div>
 	<div id='map_canvas' style="top:56px;left:183px;position: absolute;  border-radius: 10px;"></div>
 	<div id='donut_selector' style="top:45px;left:10px;position: absolute;"></div>
