@@ -1,31 +1,5 @@
 
-	function dynamicSort(property) {
-	    var sortOrder = 1;
-		var isnumber = true;
-		
-		if(property === "country") 
-		{
-			isnumber = false;
-		}
-	  
-	    if(property[0] === "-") {
-	        sortOrder = -1;
-	        property = property.substr(1);
-	    }
-		
-		if(isnumber) {
-		    return function (a,b) {
-		        var result = (parseFloat(a[property]) < parseFloat(b[property])) ? -1 : 1;
-		        return result * sortOrder;
-		    }
-		} else {
-		    return function (a,b) {
-		        var result = (a[property] < b[property]) ? -1 : 1;
-		        return result * sortOrder;
-		    }
-		}
-
-	}
+	
 	
 	
 	function drawDoreen(sortorder , reason) 
@@ -256,6 +230,6 @@
 			});				
 		
  	
-		}, 700);
+		}, 1300);
 	}
 	

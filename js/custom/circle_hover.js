@@ -9,15 +9,7 @@ $(function(){
                                      
  	var g = svg.append("g").attr("transform","translate("+(radius+margin)+","+(radius+margin-26)+")")
  	//Draw the Circle
- 	/*
- 	var circle = g.append("circle")
-                          .attr("r", radius)
-                          .attr("fill","#eee")
-	    				  //.style("stroke","#666")
-  						  .style("stroke-width","3px")
-  						  //.attr("visibility","hidden");
-						  
-	*/					  
+					  
 	var circle_country = g.append('text').attr('id','hover_country')
 					.attr('class', 'circle_hover')
 					.style('font-size',14)

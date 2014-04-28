@@ -9,19 +9,26 @@
 
 
 	<!-- Custom JS Modules -->
-	<script async src="js/custom/utils.js"></script>
-	<script async src="js/custom/glyph.js"></script>
+	<script src="js/custom/utils.js"></script>
+	<script src="js/custom/glyph.js"></script>
 	<script src="js/custom/map_doreen.js"></script>
-	<script async src="js/custom/donut_selector.js" ></script>
-	<script async src="js/custom/circle_hover.js" ></script>
+	<script src="js/custom/donut_selector.js" ></script>
+	<script src="js/custom/circle_hover.js" ></script>
 	
 	
 	<script type="text/javascript">
+	var agriculture = [];
+	var water = [];
+	var health = [];
+	var education = [];
+	var law = [];
+	
+	readsparklinedata();
+	
+
 		$(function(){
 			var _reason = "none";
 			drawDoreen($('#dropselect').val() , _reason );
-			
-			
 			
 			$('#dropselect').change( function(){
 				drawDoreen($('#dropselect').val() , _reason);
@@ -33,6 +40,7 @@
 					searchAddress(address, function(latlon){
 				});
 			});
+			drawDonut();
 	 });
 	
 	</script>

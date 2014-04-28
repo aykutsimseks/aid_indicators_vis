@@ -1,3 +1,112 @@
+function parseDateCustom(str) {
+	str = "01.01." + str;
+    var dateParts = str.split(".");
+    if (dateParts.length != 3)
+        return null;
+    var year = dateParts[2];
+    var month = dateParts[1];
+    var day = dateParts[0];
+
+    if (isNaN(day) || isNaN(month) || isNaN(year))
+        return null;
+
+    var result = new Date(year, (month - 1), day);
+    if (result == null)
+        return null;
+    if (result.getDate() != day)
+        return null;
+    if (result.getMonth() != (month - 1))
+        return null;
+    if (result.getFullYear() != year)
+        return null;
+
+    return result;
+}
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+	var isnumber = true;
+	
+	if(property === "country") 
+	{
+		isnumber = false;
+	}
+  
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+	
+	if(isnumber) {
+	    return function (a,b) {
+	        var result = (parseFloat(a[property]) < parseFloat(b[property])) ? -1 : 1;
+	        return result * sortOrder;
+	    }
+	} else {
+	    return function (a,b) {
+	        var result = (a[property] < b[property]) ? -1 : 1;
+	        return result * sortOrder;
+	    }
+	}
+
+}
+
+
+
+function readsparklinedata() {
+	
+	
+	
+	var file = "data/reasonyear.csv";
+	d3.csv(file, function(err, filedata) {
+		filedata.forEach(function(line){
+			if (line.reason == "Agriculture") {
+				agriculture.push({
+					"date" : parseDateCustom(line.date) ,
+					"Date" : "Jan 1, " + line.date ,
+					"Close" : ((parseInt(line.amt) / 1000000).toFixed(0)).toString(),
+					"close" : parseFloat((parseInt(line.amt) / 1000000).toFixed(2))
+				});
+			}
+			 else if (line.reason == "Water") {
+				water.push({
+					"date" : parseDateCustom(line.date) ,
+					"Date" :  "Jan 1, " + line.date ,
+					"Close" : line.amt,
+					"close" : parseInt(line.amt)
+				});
+			} else if (line.reason == "Education") {
+				
+				education.push({
+					"date" : parseDateCustom(line.date) ,
+					"Date" :  "Jan 1, " + line.date ,
+					"Close" : line.amt,
+					"close" : parseInt(line.amt)
+				});
+			} else if (line.reason == "Law&Justice") {
+			
+				law.push({
+					"date" : parseDateCustom(line.date) ,
+					"Date" :  "Jan 1, " + line.date ,
+					"Close" : line.amt,
+					"close" : parseInt(line.amt)
+				});
+			} else if (line.reason == "Health") {
+			
+				health.push({
+					"date" : parseDateCustom(line.date) ,
+					"Date" :  "Jan 1, " + line.date ,
+					"Close" : line.amt,
+					"close" : parseInt(line.amt) / 100
+				});
+			}
+				
+		
+		});
+		
+	});
+}
+
 function toTitleCase(str)
 {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
