@@ -190,24 +190,58 @@
 		      							.style('top','11px')
 				  						.style("position" , "absolute")
 		      							.text(i.country);
-					var upper = i.population;
-					var upperfactor = (i.all_aid_per_capita  / max_per_cap).toFixed(0);
+					var upper = i.all_aid_per_capita;
+					var upperfactor = (i.all_aid_per_capita/max_per_cap).toFixed(0);
 					
-					var lower = i.all_aid_per_capita;
+					var lower = i.population;
 					var lowerfactor = (i.population  / max_pop).toFixed(0);
 					
-					console.log(upper);
-					console.log(upperfactor);
+					if(reason == "Law & Justice" ) {
+						upper = i.law_and_justice_aid_per_capita;
+						upperfactor = (i.law_and_justice_aid_per_capita/max_per_cap).toFixed(0);
+					    	
+						lower = i.population;
+						lowerfactor = (i.population  / max_pop).toFixed(0);
+					}
 					
-					console.log(lower);
-					console.log(lowerfactor);
+					if(reason == "Agriculture" ) {
+						upper = i.agriculture_aid_per_capita;
+						upperfactor = (i.agriculture_aid_per_capita/max_per_cap).toFixed(0);
+					
+						lower = i.population;
+						lowerfactor = (i.population  / max_pop).toFixed(0);
+					}
+					
+					if(reason == "Water" ) {
+						upper = i.water_aid_per_capita;
+						upperfactor = (i.water_aid_per_capita/max_per_cap).toFixed(0);
+					
+						lower = i.population;
+						lowerfactor = (i.population  / max_pop).toFixed(0);
+					}
+					
+					if(reason == "Health" ) {
+						upper = i.health_aid_per_capita;
+						upperfactor = (i.health_aid_per_capita/max_per_cap).toFixed(0);
+					
+						lower = i.population;
+						lowerfactor = (i.population  / max_pop).toFixed(0);
+					}
+					
+					if(reason == "Education" ) {
+						upper = i.education_aid_per_capita;
+						upperfactor = (i.education_aid_per_capita/max_per_cap).toFixed(0);
+					
+						lower = i.population;
+						lowerfactor = (i.population  / max_pop).toFixed(0);
+					}
+					
 					
 					//working on this right now
 					var values = [
 						{"value":upper,"norm_value": upperfactor},
 						{"value":lower,"norm_value":lowerfactor}
 						];
-
 					half_circle("#"+divname,values);
 					
 					if(count == 8) 
