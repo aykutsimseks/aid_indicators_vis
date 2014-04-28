@@ -35,7 +35,7 @@
 		$("#reasondiv").html(reason);
 		var timer = setTimeout(function() {
 			var width = 1078;
-			var height = 2000;
+			var height = 616;
 			var centered;
 			var elem_id = "#map_canvas"
 	

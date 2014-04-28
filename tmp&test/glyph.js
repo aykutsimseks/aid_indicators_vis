@@ -9,6 +9,7 @@ function half_circle (elem_id,values,range1, range2){
  	*/
  	var start_year = 1960;
  	var averages = [];
+ 	var arc_lock = false;
  	for(j=0; j < 2; j++)
  	{
  		var found = 0;
@@ -34,7 +35,7 @@ function half_circle (elem_id,values,range1, range2){
  	
 	
 	var radius  = 100;
-	var margin = 25;
+	var margin = 22;
 	var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
 
     var outerRadius = radius;
@@ -46,7 +47,7 @@ function half_circle (elem_id,values,range1, range2){
     			.attr("width", (radius+margin)*2)
     			.attr("height", (radius+margin)*2)
   				.append("g")
-    			.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 10) + ")");
+    			.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 15) + ")");
    				
 	var arc0 = d3.svg.arc()
     			//.outerRadius(function(d,i){val = d.data["norm_value"];return (val > 0)?outerRadius*d.data["norm_value"]:innerRadius})
@@ -71,13 +72,15 @@ function half_circle (elem_id,values,range1, range2){
     			.endAngle(3.5*Math.PI);
 	
 	var year_text = svg.append('text')
-      				  .attr("transform","translate(" + ( - (radius + margin)) + " , " + (- (radius + margin - 24)) + ")")
+      				  .attr("transform","translate(" + ( - (radius + margin)) + " , " + (- (radius + margin - 36)) + ")")
       				  .style("fill","#666")
       				  .style('visibility','hidden')
+      				  .attr('font-size',28)
+      				  .attr('font-family','Amatic SC')
       				  .style("cursor","default")
       				  
     var value_text = svg.append('text')
-      				  .attr("transform","translate(" + ( - (radius + margin)) + " , " + (- (radius + margin - 40)) + ")")
+      				  .attr("transform","translate(" + ( - (radius + margin - 10)) + " , " + (- (radius + margin - 50)) + ")")
       				  .style("fill","#666")
       				  .style('visibility','hidden')
       				  .style("cursor","default")
@@ -126,21 +129,49 @@ function half_circle (elem_id,values,range1, range2){
   	g1.append("path")
       .style("fill", function(d,i) {return colors[0]})
       .on("mouseover", function(d,i) {
-      		//svg.select("#sah1_" + i).style("opacity",.7);
-			d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
-			d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
-			year_text
+      		if(!arc_lock)
+       		{
+      			//svg.select("#sah1_" + i).style("opacity",.7);
+				d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
+				d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
+				year_text
 					.text(start_year+i)
 					.style('visibility','visible')
-			value_text
+				value_text
 					.text(d.data.toFixed(1))
 					.style('visibility','visible')
+			}
        })
        .on("mouseout",function(d,i) {
-       		d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
-       		d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
+       		if(!arc_lock)
+       		{
+       			d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
+       			d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
+       			year_text.style('visibility','hidden')
+       			value_text.style('visibility','hidden')
+       		}
+       })
+       .on("click",function(d,i) {
+       		svg.selectAll(".arc0").style("opacity",.7);
+       		svg.selectAll(".arc1").style("opacity",.7);
        		year_text.style('visibility','hidden')
        		value_text.style('visibility','hidden')
+       		if(!arc_lock)
+       		{
+       			arc_lock = true;
+       			d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
+				d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
+				year_text
+					.text(start_year+i)
+					.style('visibility','visible')
+				value_text
+					.text(d.data.toFixed(1))
+					.style('visibility','visible')
+       		}
+       		else
+       		{
+       			arc_lock = false;
+       		}
        })
        
       .transition().delay(function(d, i) { return i * 10; }).duration(10)
@@ -162,21 +193,49 @@ function half_circle (elem_id,values,range1, range2){
 	g2.append("path")
       .style("fill", function(d,i) {return colors[1]})
       .on("mouseover", function(d,i) {
-      		//alert(svg.select("#sah1_"+i))
-			d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
-			d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
-			year_text
+      		if(!arc_lock)
+       		{
+      			//svg.select("#sah1_" + i).style("opacity",.7);
+				d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
+				d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
+				year_text
 					.text(start_year+i)
 					.style('visibility','visible')
-			value_text
+				value_text
 					.text(d.data.toFixed(1))
 					.style('visibility','visible')
+			}
        })
        .on("mouseout",function(d,i) {
-       		d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
-       		d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
+       		if(!arc_lock)
+       		{
+       			d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
+       			d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
+       			year_text.style('visibility','hidden')
+       			value_text.style('visibility','hidden')
+       		}
+       })
+       .on("click",function(d,i) {
+       		svg.selectAll(".arc0").style("opacity",.7);
+       		svg.selectAll(".arc1").style("opacity",.7);
        		year_text.style('visibility','hidden')
        		value_text.style('visibility','hidden')
+       		if(!arc_lock)
+       		{
+       			arc_lock = true;
+       			d3.select("body").selectAll("#sah1_" + i).style("opacity",1);
+				d3.select("body").selectAll("#sah0_" + i).style("opacity",1);
+				year_text
+					.text(start_year+i)
+					.style('visibility','visible')
+				value_text
+					.text(d.data.toFixed(1))
+					.style('visibility','visible')
+       		}
+       		else
+       		{
+       			arc_lock = false;
+       		}
        })
       .transition().delay(function(d, i) { return i * 10; }).duration(10)
   	  .attrTween('d', function(d) {
