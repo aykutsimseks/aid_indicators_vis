@@ -185,13 +185,7 @@ function drawDonut(sortorder , reason) {
              			 .x(function(d) { return x(d.date); })
              			 .y(function(d) { return y(d.close); });
   
-  		/*	stockdata.forEach(function(d) {
-    			d.date = parseDate(d.Date);
-    			//d.date = d.Date;
-    			//d.close = +d.Close;
-  			});
-			*/
-  			//alert(JSON.stringify(stockdata))
+  		
 			
   			x.domain(d3.extent(stockdata, function(d) { return d.date; }));
   			y.domain(d3.extent(stockdata, function(d) { return d.close; }));

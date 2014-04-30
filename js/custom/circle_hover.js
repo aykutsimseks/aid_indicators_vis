@@ -44,50 +44,6 @@ $(function(){
 					    .attr("visibility","hidden")
 						.attr('transform','translate(-'+ (radius-margin) + ',13)');
 						
-	var circle_aidpercapita = g.append('text')
-					 	.attr('id','hover_totalaidagriculture')
-					    .attr('class', 'circle_hover')
-					    .style("fill","#666")
-					    .text("Country Name")
-					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',25)');
-						
-	var circle_aidpercapita = g.append('text')
-					 	.attr('id','hover_totalaidhealth')
-					    .attr('class', 'circle_hover')
-					    .style("fill","#666")
-					    .text("Country Name")
-					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',40)');
-						
-	var circle_aidpercapita = g.append('text')
-					 	.attr('id','hover_totalaidlaw')
-					    .attr('class', 'circle_hover')
-					    .style("fill","#666")
-					    .text("Country Name")
-					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',55)');
-	
-	var circle_aidpercapita = g.append('text')
-					 	.attr('id','hover_totalaideducation')
-					    .attr('class', 'circle_hover')
-					    .style("fill","#666")
-					    .text("Country Name")
-					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',70)');
-	
-	var circle_aidpercapita = g.append('text')
-					 	.attr('id','hover_totalaidwater')
-					    .attr('class', 'circle_hover')
-					    .style("fill","#666")
-					    .text("Country Name")
-					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',85)');
-	
-	
-	
-
-	
 	
 	var circle_aidpercapita = g.append('text')
 					 	.attr('id','hover_clicktoseemore')
@@ -97,7 +53,7 @@ $(function(){
 					    .style("font-size",9)
 					    .attr("visibility","hidden")
 					    .attr("text-anchor","begin")
-						.attr('transform','translate('+ (15) + ',100)')
+						.attr('transform','translate('+ (15) + ',25)')
 						
 	
 	  
