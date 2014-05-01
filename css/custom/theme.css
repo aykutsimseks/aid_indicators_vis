@@ -7,6 +7,14 @@ html {
 	background-color: #eee;
 }
 
+#reasondiv {
+	position: relative;
+	font: 10px 'Helvetica',Arial;
+	font-weight: 200;
+	text-anchor:middle;
+	margin: auto;
+}
+
 /* DROPDOWN */
 
 .dropselect {
