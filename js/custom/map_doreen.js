@@ -2,7 +2,8 @@
 	//var max_per_capita_aids = [14721,4497,10145,1615,3517,1153]
 	var max_per_capita_aids = [1000,200,200,200,200,200]
 	//var max_indicator_values = [46075,70.2,142.3,1330,310.3,100]
-	var max_indicator_values = [5000,10,65,200,15,60]
+	var max_indicator_values = [5000,10,65,200,15,60];
+	
 	function drawDoreen(sortorder , reason) 
 	{
 		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
@@ -15,7 +16,7 @@
   				glyph_colors = ["#D4A36E","#BC6F1D"];
   				break;
   			case "Health":
-  				glyph_colors = ["#BC7171","#962121"];
+  				glyph_colors = ["#BC7171","#A03737"];
   				break;
   			case "Law \& Justice":
   				glyph_colors = ["#D0D46E","#B6BC1D"];
@@ -28,7 +29,7 @@
 		}
 		d3.select("#countrycontainer").remove();
 		d3.select("#glyph_sample").remove();
-		$("#reasondiv").html(reason);
+		$("#reasondiv").text(reason + " aid");
 
 		var timer = setTimeout(function() {
 			var width = 1078;
@@ -63,7 +64,7 @@
 				  		.style("position" , "absolute")
 				  		.style('font-weight',300)
 				  		.style('color','#333')
-		      			.text("Aid per capita")
+		      			.text("Per capita")
 		    rect_sample.append('div')
 		    			.attr('id','legendtext2')
 		      			.style('top','26px')
@@ -71,7 +72,7 @@
 				  		.style("position" , "absolute")
 				  		.style('font-weight',300)
 				  		.style('color','#333')
-		      			.text("Population")
+		      			.text("Indicator")
 			rect_sample.selectAll("path").style("cursor","default");
 	
 	

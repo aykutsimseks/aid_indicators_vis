@@ -23,11 +23,12 @@
 	var health = [];
 	var education = [];
 	var law = [];
+	
 	readsparklinedata();
 	
 
 		$(function(){
-			var _reason = "none";
+			var _reason = "Total";
 			drawDoreen($('#dropselect').val() , _reason );
 			
 			$('#dropselect').change( function(){
@@ -51,9 +52,8 @@
                 <a href="http://www.linkedin.com/pub/aykut-simsek/38/b70/27" alt="Aykut Simsek" target="_blank" style="color:#666;">Aykut Simsek</a>
             	</div>			
     </div>
-	<div id="reasondiv" style="top:12px;left:550px; position: absolute; font: 10px 'Helvetica',Arial;font-weight: 800;">	
-	</div>
-		<div style="top:212px;left:10px;position: absolute;font: 10px 'Helvetica',Arial;font-weight: 800">
+	<div id="reasondiv" style="top:12px;left:1195px; position: absolute; "></div>
+	<div style="top:212px;left:10px;position: absolute;font: 10px 'Helvetica',Arial;font-weight: 800">
 		Sorted by:
 		<select id="dropselect" class="dropselect">
 		  <option value="country" selected="selected">Country Name</option>
