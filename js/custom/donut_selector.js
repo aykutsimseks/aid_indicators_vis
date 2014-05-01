@@ -151,7 +151,7 @@ function drawDonut(sortorder , reason) {
       				sparkline.attr('visibility','visible')
 				}
 			}
-	    			
+	    	
       		g.select("path")
       			.on("mouseover", function(d,i) {
     				mouseOver(d,i);
@@ -195,18 +195,19 @@ function drawDonut(sortorder , reason) {
               				  .attr('class', 'sparkline')
               				  .attr('visibility','hidden')
               				  .attr('transform',"translate(-32,-2)")
-            
+            /*
             var sparkline_cursor = sparkline.append('circle')
      							.attr('class', 'sparkcircle')								
      							.attr('r', 5)
      							.attr('cx', x(stockdata[0].date))
      							.attr('cy', y(stockdata[0].close)) ;
-     		  		  
+     		*/		  
       							 	 		  
   			sparkline.append('path')
   			  	 		.data([stockdata])
 						.attr("d", line)
      					.attr("transform", "scale(.4,.3)")	
+     		/*
 						.on("mousemove", function() {
 							node = d3.mouse(sparkline.node())
      						sparkline_cursor.attr("cx",node[0])
@@ -221,6 +222,7 @@ function drawDonut(sortorder , reason) {
 							
         					//console.log(df);
         					selected_year = df.Date;
-    	 })
+    		 })
+    		 */
 	 }, 700);
 }
