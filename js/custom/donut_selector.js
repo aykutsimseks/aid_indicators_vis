@@ -222,7 +222,7 @@ function drawDonut(sortorder , reason) {
 							
         					//console.log(df);
         					selected_year = df.Date;
-    		 })
-    		 */
+    	 })
+    		*/
 	 }, 700);
 }
