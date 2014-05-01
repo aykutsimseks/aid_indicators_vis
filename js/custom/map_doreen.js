@@ -41,10 +41,12 @@
 			var max_per_cap = 1000;
 			
 			//Create country container
-			var svg = d3.select(elem_id).append("div")
+			var svg = d3.select(elem_id).append("ul")
 							.attr("id" , "countrycontainer")
 			    			.style("width", width+"px")
 			    			.style("height", height+"px")
+							//.appen("ul")
+							.attr("class" , "sortable");
 
 			
 			//create sample rect
@@ -141,13 +143,14 @@
 				}
 				
 
-				 var rec= svg.append("div")
+				 var rec= svg.append("li")
 					.attr("data-country",i.country)
 					.attr("data-code", i.country_code)
 					.style("width","75px")
 					.style("height","44px")
 					.style("float","left")
 					.style("cursor","pointer")
+					//.attr("class", "sortable")
 				  	.style("position" , "relative")
 					.style("border" , "1px solid")
 					.style("border-color","rgba(200,200,200,.3)")
@@ -266,7 +269,13 @@
 
 			});				
 		
+		
+			var sortabletimmer = setTimeout(function() { 
+			    $( ".sortable" ).sortable();
+			    $( ".sortable" ).disableSelection();
+			}, 1500);
  	
 		}, 1300);
+		
 	}
 	

@@ -5,8 +5,13 @@
 	<!-- Javascript Libraries -->
 	<script src="js/d3.v3.min.js"></script>
 	<script src="js/jquery.tools.min.js"></script>
+	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 	
-
+	<style>
+	  .sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
+	  .sortable li { padding: 1px; float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
+	  </style>
+	
 
 	<!-- Custom JS Modules -->
 	<script src="js/custom/utils.js"></script>
@@ -34,6 +39,7 @@
 				drawDoreen($('#dropselect').val() , _reason);
 			});
 			drawDonut();
+
 	 });
 	
 	</script>

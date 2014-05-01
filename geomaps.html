@@ -7,6 +7,7 @@
 	<script src="js/topojson.v1.min.js"></script>
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/d3.geo.projection.v0.min.js"></script>
+	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 	
 
 
@@ -22,9 +23,11 @@
 				if($(this).attr('id') == 'search_button')
 					address = document.getElementById('search_bar').value
 	    			searchAddress(address, function(latlon){
-	    			//alert(latlon[0]);
 	    		});
 	 		});
+			
+			
+			
 	 });
 	</script>
 </head>
