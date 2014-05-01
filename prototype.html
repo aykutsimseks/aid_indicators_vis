@@ -22,7 +22,6 @@
 	var health = [];
 	var education = [];
 	var law = [];
-	
 	readsparklinedata();
 	
 
@@ -32,13 +31,6 @@
 			
 			$('#dropselect').change( function(){
 				drawDoreen($('#dropselect').val() , _reason);
-			});
-			$('.searchbutton').click(function() {
-				address = ""
-				if($(this).attr('id') == 'search_button')
-					address = document.getElementById('search_bar').value
-					searchAddress(address, function(latlon){
-				});
 			});
 			drawDonut();
 	 });

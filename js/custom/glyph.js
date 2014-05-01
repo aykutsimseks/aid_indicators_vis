@@ -1,8 +1,8 @@
-function half_circle (elem_id,values,range1, range2){ 
+function half_circle (elem_id,values,colors,range1, range2){ 
 
 	var radius  = 12;
 	var margin = 26;
-	var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
+	//var colors = //,"#ae3a3a"];
 
     var outerRadius = radius;
     var arcWidth = radius-1;

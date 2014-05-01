@@ -1,12 +1,35 @@
-
-	
-	
-	
+	var glyph_colors = ["#ff9900","#CC6633"];
+	//var max_per_capita_aids = [14721,4497,10145,1615,3517,1153]
+	var max_per_capita_aids = [1000,200,200,200,200,200]
+	//var max_indicator_values = [46075,70.2,142.3,1330,310.3,100]
+	var max_indicator_values = [5000,10,65,200,15,60]
 	function drawDoreen(sortorder , reason) 
 	{
+		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
+		switch(reason)
+		{
+			case "Agriculture":
+  				glyph_colors = ["#ff9900","#5FB404"];
+  				break;
+  			case "Education":
+  				glyph_colors = ["#ff9900","#B45F04"];
+  				break;
+  			case "Health":
+  				glyph_colors = ["#ff9900","#8A0808"];
+  				break;
+  			case "Law \& Justice":
+  				glyph_colors = ["#ff9900","#AEB404"];
+  				break;
+  			case "Water":
+  				glyph_colors = ["#ff9900","#0489B1"];
+  				break;
+			default:
+  				 glyph_colors = ["#ff9900","#CC6633"];
+		}
 		d3.select("#countrycontainer").remove();
 		d3.select("#glyph_sample").remove();
 		$("#reasondiv").html(reason);
+
 		var timer = setTimeout(function() {
 			var width = 1078;
 			var height = 616;
@@ -32,7 +55,7 @@
 				  	.style("position" , "relative")
 					.attr("id", "glyph_sample" )
 			var values = [{"value":max_per_cap,"norm_value": 1.2},{"value":max_pop,"norm_value":1.2}];
-			half_circle("#glyph_sample",values);
+			half_circle("#glyph_sample",values,glyph_colors);
 			rect_sample.append('div')
 						.attr('id','legendtext1')
 		      			.style('top','12px')
@@ -69,50 +92,50 @@
 				var divname = "circle_hover"+ "_"+ i.country_code;		
 				
 				
-				var upper = i.all_total_aid / i.population;
-				var upperfactor = (upper/max_per_cap).toFixed(0);
+				var upper = i.all_per_capita_aid;
+				var upperfactor = (upper/max_per_capita_aids[0]).toFixed(0);
 				
-				var lower = i.population;
-				var lowerfactor = (i.population  / max_pop).toFixed(0);
+				var lower = i.gdp_indicator_average/i.population;
+				var lowerfactor = (lower  / max_indicator_values[0]).toFixed(0);
 				
 				if(reason == "Law & Justice" ) {
-					upper = i.law_and_justice_total_aid / i.population;
-					upperfactor = (i.law_and_justice_total_aid/i.population).toFixed(0);
+					upper = i.law_and_justice_per_capita_aid;
+					upperfactor = (upper/max_per_capita_aids[4]).toFixed(0);
 				    	
 					lower = i.law_and_justice_indicator_average;
-					lowerfactor = (i.law_and_justice_indicator_average  / i.population).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[4]).toFixed(0);
 				}
 				
 				if(reason == "Agriculture" ) {
-					upper = i.agriculture_total_aid / i.population;
-					upperfactor = (i.agriculture_total_aid / i.population).toFixed(0);
+					upper = i.agriculture_per_capita_aid;
+					upperfactor = (upper /max_per_capita_aids[1]).toFixed(0);
 				
 					lower = i.agriculture_indicator_average;
-					lowerfactor = (i.agriculture_indicator_average / 1).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[1]).toFixed(0);
 				}
 				
 				if(reason == "Water" ) {
-					upper = i.water_total_aid / i.population;
-					upperfactor = (i.water_total_aid / i.population).toFixed(0);
+					upper = i.water_per_capita_aid;
+					upperfactor = (upper /max_per_capita_aids[5]).toFixed(0);
 				
 					lower = i.water_indicator_average;
-					lowerfactor = (i.water_indicator_average / 1).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[5]).toFixed(0);
 				}
 				
 				if(reason == "Health" ) {
-					upper = i.health_total_aid / i.population;
-					upperfactor = (i.health_total_aid/max_per_cap).toFixed(0);
+					upper = i.health_per_capita_aid;
+					upperfactor = (upper/max_per_capita_aids[3]).toFixed(0);
 				
 					lower = i.health_indicator_average;
-					lowerfactor = (i.health_indicator_average  / 1).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[3]).toFixed(0);
 				}
 				
 				if(reason == "Education" ) {
-					upper = i.education_total_aid/i.population;
-					upperfactor = (i.education_total_aid/i.population).toFixed(0);
+					upper = i.education_per_capita_aid;
+					upperfactor = (upper/max_per_capita_aids[2]).toFixed(0);
 				
-					lower = i.population;
-					lowerfactor = (i.education_indicator_average  / 1).toFixed(0);
+					lower = i.education_indicator_average;
+					lowerfactor = (lower/max_indicator_values[2]).toFixed(0);
 				}
 				
 
@@ -141,13 +164,13 @@
 						d3.select("#hover_totalaid")
 						.attr("visibility","visible")
 						.text("Total Aid:            " + 
-						"$" + numberWithCommas(upperfactor * i.population));
+						"$" + numberWithCommas(upper * i.population));
 			
 						
 						d3.select("#hover_aidpercapita")
 						.attr("visibility","visible")
 						.text("Aid Per Capita:  " + "$" 
-						+ numberWithCommas(upperfactor));
+						+ numberWithCommas(upper));
 			
 						d3.select("#hover_clicktoseemore")
 								.attr("visibility","visible");
@@ -234,14 +257,8 @@
 						{"value":upper,"norm_value": upperfactor},
 						{"value":lower,"norm_value":lowerfactor}
 						];
-					half_circle("#"+divname,values);
+					half_circle("#"+divname,values,glyph_colors);
 					
-					if(count == 8) 
-					{
-						count = 0;
-						h ++;
-					}
-		
 	
 			  });
 
