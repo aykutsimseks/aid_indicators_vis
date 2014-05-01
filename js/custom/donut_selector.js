@@ -30,8 +30,9 @@ function drawDonut(sortorder , reason) {
   						.append("g")
     					.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 	
-			var colors = ["#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"];
-									
+			//var colors = ["#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"];
+			var colors = ["#962121","#BC6F1D","#6FBC1D","#B6BC1D","#1D95B9"]	
+			//var colors = ["#BC7171","#D4A36E","#AED980","#D0D46E","#A4D4E3"]				
 			var arc = d3.svg.arc()
     					.outerRadius(outerRadius)
     					.innerRadius(innerRadius);

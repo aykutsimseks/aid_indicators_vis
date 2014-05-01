@@ -1,4 +1,4 @@
-function half_circle (elem_id,values,range1, range2){
+function half_circle_spatial (elem_id,values,colors,range1, range2){
 	yearly_values = []
 	/*
 	values.forEach(function(d) {
@@ -36,7 +36,7 @@ function half_circle (elem_id,values,range1, range2){
 	
 	var radius  = 100;
 	var margin = 22;
-	var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
+	//var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
 
     var outerRadius = radius;
     var arcWidth = radius-1;

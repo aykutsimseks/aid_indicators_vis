@@ -5,7 +5,7 @@ function half_circle (elem_id,values,colors,range1, range2){
 	//var colors = //,"#ae3a3a"];
 
     var outerRadius = radius;
-    var arcWidth = radius-1;
+    var arcWidth = radius-0.3;
 	var innerRadius = radius - arcWidth;
 				
 	//Make an SVG Container

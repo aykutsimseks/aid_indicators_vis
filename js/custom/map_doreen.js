@@ -9,22 +9,22 @@
 		switch(reason)
 		{
 			case "Agriculture":
-  				glyph_colors = ["#ff9900","#5FB404"];
+  				glyph_colors = ["#AED980","#6FBC1D"];
   				break;
   			case "Education":
-  				glyph_colors = ["#ff9900","#B45F04"];
+  				glyph_colors = ["#D4A36E","#BC6F1D"];
   				break;
   			case "Health":
-  				glyph_colors = ["#ff9900","#8A0808"];
+  				glyph_colors = ["#BC7171","#962121"];
   				break;
   			case "Law \& Justice":
-  				glyph_colors = ["#ff9900","#AEB404"];
+  				glyph_colors = ["#D0D46E","#B6BC1D"];
   				break;
   			case "Water":
-  				glyph_colors = ["#ff9900","#0489B1"];
+  				glyph_colors = ["#A4D4E3","#1D95B9"];
   				break;
 			default:
-  				 glyph_colors = ["#ff9900","#CC6633"];
+  				 glyph_colors = ["#FFCE85","#FFAD33"];
 		}
 		d3.select("#countrycontainer").remove();
 		d3.select("#glyph_sample").remove();
@@ -93,49 +93,51 @@
 				
 				
 				var upper = i.all_per_capita_aid;
-				var upperfactor = (upper/max_per_capita_aids[0]).toFixed(0);
+				var upperfactor = (upper/max_per_capita_aids[0]);
+				var upper_year_values = i.all_aid_yearly.split(",");
 				
 				var lower = i.gdp_indicator_average/i.population;
-				var lowerfactor = (lower  / max_indicator_values[0]).toFixed(0);
+				var lowerfactor = (lower  / max_indicator_values[0]);
+				var lower_year_values = i.gdp_indicators_yearly.split(",");
 				
 				if(reason == "Law & Justice" ) {
 					upper = i.law_and_justice_per_capita_aid;
-					upperfactor = (upper/max_per_capita_aids[4]).toFixed(0);
+					upperfactor = (upper/max_per_capita_aids[4]);
 				    	
 					lower = i.law_and_justice_indicator_average;
-					lowerfactor = (lower  / max_indicator_values[4]).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[4]);
 				}
 				
 				if(reason == "Agriculture" ) {
 					upper = i.agriculture_per_capita_aid;
-					upperfactor = (upper /max_per_capita_aids[1]).toFixed(0);
+					upperfactor = (upper /max_per_capita_aids[1]);
 				
 					lower = i.agriculture_indicator_average;
-					lowerfactor = (lower  / max_indicator_values[1]).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[1]);
 				}
 				
 				if(reason == "Water" ) {
 					upper = i.water_per_capita_aid;
-					upperfactor = (upper /max_per_capita_aids[5]).toFixed(0);
+					upperfactor = (upper /max_per_capita_aids[5]);
 				
 					lower = i.water_indicator_average;
-					lowerfactor = (lower  / max_indicator_values[5]).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[5]);
 				}
 				
 				if(reason == "Health" ) {
 					upper = i.health_per_capita_aid;
-					upperfactor = (upper/max_per_capita_aids[3]).toFixed(0);
+					upperfactor = (upper/max_per_capita_aids[3]);
 				
 					lower = i.health_indicator_average;
-					lowerfactor = (lower  / max_indicator_values[3]).toFixed(0);
+					lowerfactor = (lower  / max_indicator_values[3]);
 				}
 				
 				if(reason == "Education" ) {
 					upper = i.education_per_capita_aid;
-					upperfactor = (upper/max_per_capita_aids[2]).toFixed(0);
+					upperfactor = (upper/max_per_capita_aids[2]);
 				
 					lower = i.education_indicator_average;
-					lowerfactor = (lower/max_indicator_values[2]).toFixed(0);
+					lowerfactor = (lower/max_indicator_values[2]);
 				}
 				
 
@@ -254,8 +256,8 @@
 					
 					//working on this right now
 					var values = [
-						{"value":upper,"norm_value": upperfactor},
-						{"value":lower,"norm_value":lowerfactor}
+						{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
+						{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
 						];
 					half_circle("#"+divname,values,glyph_colors);
 					
