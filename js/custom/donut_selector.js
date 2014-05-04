@@ -172,6 +172,7 @@ function drawDonut(sortorder , reason) {
       				d3.select(this)
       					.style("fill-opacity", 0.3)
       					.style("fill", "#000")
+						$('#hiddenreason').val(d.data.purpose);
 						drawDoreen($('#dropselect').val() , d.data.purpose);
 						
       			})

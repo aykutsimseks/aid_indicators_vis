@@ -28,10 +28,9 @@ function dynamicSort(property) {
 	var isnumber = true;
 	
 	if(property === "country") 
-	{
+	{		
 		isnumber = false;
 	}
-  
     if(property[0] === "-") {
         sortOrder = -1;
         property = property.substr(1);
@@ -39,7 +38,15 @@ function dynamicSort(property) {
 	
 	if(isnumber) {
 	    return function (a,b) {
-	        var result = (parseFloat(a[property]) < parseFloat(b[property])) ? -1 : 1;
+			
+			
+			if(b[property] === undefined)  {
+				b[property] ="-1";
+			}
+			if(a[property] === undefined)  {
+				a[property] =-1;
+			}
+	        var result = (parseInt(a[property]) < parseInt(b[property])) ? -1 : 1;
 	        return result * sortOrder;
 	    }
 	} else {

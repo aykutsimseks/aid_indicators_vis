@@ -8,8 +8,8 @@
 	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 	
 	<style>
-	  .sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
-	  .sortable li { padding: 1px; float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
+	  .sortable { list-style-type: none; margin: 0; padding: 0;  }
+	  .sortable li { float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
 	  </style>
 	
 
@@ -34,11 +34,17 @@
 
 		$(function(){
 			var _reason = "Total";
-			drawDoreen($('#dropselect').val() , _reason );
+			var _order  = $('#dropselect').val();
+			drawDoreen( _order , _reason );
 			
 			$('#dropselect').change( function(){
-				drawDoreen($('#dropselect').val() , _reason);
+				
+				_reason = $('#hiddenreason').val();
+				_order  = $('#dropselect').val();
+				
+				drawDoreen(_order , _reason);
 			});
+			
 			drawDonut();
 
 	 });
@@ -46,7 +52,7 @@
 	</script>
 </head>
 <body>
-
+<input type="hidden" name="hiddenreason" value="" id="hiddenreason">
 	<!-- A nicer header should go here -->
 	<div id='header' style="font-size:23px;color:#666;top:10px;left:8px;position: absolute;">
 				Aid Data/World Bank Visualization

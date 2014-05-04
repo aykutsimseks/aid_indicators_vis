@@ -27,8 +27,12 @@
 			default:
   				 glyph_colors = ["#FFCE85","#FFAD33"];
 		}
+		
+		
 		d3.select("#countrycontainer").remove();
 		d3.select("#glyph_sample").remove();
+		
+		
 		$("#reasondiv").text(reason + " aid");
 
 		var timer = setTimeout(function() {
@@ -83,6 +87,24 @@
 			var file = "data/aid_vis_master_table.csv";
 			d3.csv(file, function(err, cnt) {
 				c = cnt;
+				switch(sortorder)
+				{
+					case "-all_aid_total":
+						if(reason == "Agriculture" ) { 
+							sortorder = "-agriculture_total_aid";
+						} else if(reason == "Law & Justice" ) {
+							sortorder = "-law_and_justice_total_aid";
+						}
+		  				break;
+		  			case "-all_aid_per_capita":	
+					
+		  				break;
+		  			case "-indicator":
+						
+						break;
+					default:
+						break;
+				}
 			 	cnt.sort(dynamicSort(sortorder));
 			 	var count = 0; 
 			 	var h =0;
@@ -151,7 +173,6 @@
 					.style("height","44px")
 					.style("float","left")
 					.style("cursor","pointer")
-					//.attr("class", "sortable")
 				  	.style("position" , "relative")
 					.style("border" , "1px solid")
 					.style("border-color","rgba(200,200,200,.3)")
