@@ -54,7 +54,10 @@ $(function(){
 					    .attr("visibility","hidden")
 					    .attr("text-anchor","begin")
 						.attr('transform','translate('+ (15) + ',25)')
-						
+	
+	g.append("g").attr('id','hover_bar')
+				 .attr('transform','translate(-85,25)')
+				
 	
 	  
       						

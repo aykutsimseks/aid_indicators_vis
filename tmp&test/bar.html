@@ -27,9 +27,10 @@
 <script src="horizontal_stacked_bar.js" ></script>
 <script type="text/javascript">
 	$(function(){ 
-		var values = [{"value":64,"norm_value":.8,"yearly_values":[2,1,4,2,4]},{"value":1000000,"norm_value":.5,"yearly_values":[1,3,6,2,2]}];
- 		var glyph_colors = ["#ff9900","#CC6633"]
-  		horizontal_stacked_bar();
+		d3.select("body").append("svg").append("g").attr('id','hover_bar')
+		var aid_percentages = [,2289268951,2516696160,14218679941,889859025]
+		for(i=0; i < aid_percentages.length; i++){if(aid_percentages[i] == null){aid_percentages[i]=0;}}
+  		horizontal_stacked_bar("#hover_bar",aid_percentages);
  	});
 </script>
 </head>

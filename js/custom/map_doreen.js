@@ -198,9 +198,23 @@
 						.attr("visibility","visible")
 						.text("Aid Per Capita:  " + "$" 
 						+ numberWithCommas(upper));
-			
+						
 						d3.select("#hover_clicktoseemore")
 								.attr("visibility","visible");
+								
+						d3.select("#hover_bar").selectAll("g").remove()
+						aid_totals = [i.agriculture_total_aid,i.education_total_aid,i.health_total_aid,i.law_and_justice_total_aid,i.water_total_aid]
+  						for(ai=0; ai < aid_totals.length; ai++){
+  							if(aid_totals[ai] == null)
+  							{
+  								aid_totals[ai]=0;
+  							}
+  							else
+  							{
+  								aid_totals[ai]=parseInt(aid_totals[ai]);
+  							}
+  						}
+  						horizontal_stacked_bar("#hover_bar",aid_totals);
 
 					})
 					.on("mouseout",  function(d,i) {
@@ -230,6 +244,7 @@
 						
 						d3.select("#hover_totalaidagriculture")
 								.attr("visibility","hidden");
+						d3.select("#hover_bar").selectAll("g").remove()
 					})
 					.on("click",  function(d,i) {
 						if(!selected)
