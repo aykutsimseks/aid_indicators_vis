@@ -4,7 +4,7 @@ function horizontal_stacked_bar (elem_id,totals){
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
     width = 170 - margin.left - margin.right,
     height = 30 - margin.top - margin.bottom;
-alert(totals);
+
 var aid_totals = [ totals ];
 var n = aid_totals[0].length, // number of layers
     m = aid_totals.length, // number of samples per layer
