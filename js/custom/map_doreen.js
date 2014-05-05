@@ -128,7 +128,7 @@
 						if(res == "Agriculture" ) { 
 							sortorder = "-agriculture_indicator_average";
 						} else if(res == "Law & Justice" ) {
-							sortorder = "-llaw_and_justice_indicator_average";
+							sortorder = "-law_and_justice_indicator_average";
 						} else if(res == "Water" ) {
 							sortorder = "-water_indicator_average";
 						} else if(res == "Education" ) {
