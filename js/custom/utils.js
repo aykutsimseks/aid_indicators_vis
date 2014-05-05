@@ -27,6 +27,8 @@ function dynamicSort(property) {
     var sortOrder = 1;
 	var isnumber = true;
 	
+	console.log(property + " : property msg from util")
+	
 	if(property === "country") 
 	{		
 		isnumber = false;
@@ -44,14 +46,19 @@ function dynamicSort(property) {
 				b[property] ="-1";
 			}
 			if(a[property] === undefined)  {
-				a[property] =-1;
+				a[property] ="-1";
 			}
-	        var result = (parseInt(a[property]) < parseInt(b[property])) ? -1 : 1;
+			
+	        var result = parseInt(a[property]) - parseInt(b[property]);
 	        return result * sortOrder;
 	    }
 	} else {
+		
+
 	    return function (a,b) {
-	        var result = (a[property] < b[property]) ? -1 : 1;
+			a[property] = a[property].toLowerCase(); 
+			b[property] = b[property].toLowerCase();
+	        var result = a[property] - b[property];
 	        return result * sortOrder;
 	    }
 	}

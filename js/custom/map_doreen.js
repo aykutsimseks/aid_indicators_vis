@@ -4,10 +4,10 @@
 	//var max_indicator_values = [46075,70.2,142.3,1330,310.3,100]
 	var max_indicator_values = [5000,10,65,200,15,60];
 	
-	function drawDoreen(sortorder , reason) 
+	function drawDoreen(sortorder , res) 
 	{
 		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
-		switch(reason)
+		switch(res)
 		{
 			case "Agriculture":
   				glyph_colors = ["#AED980","#6FBC1D"];
@@ -33,7 +33,7 @@
 		d3.select("#glyph_sample").remove();
 		
 		
-		$("#reasondiv").text(reason + " aid");
+		$("#reasondiv").text(res + " aid");
 
 		var timer = setTimeout(function() {
 			var width = 1078;
@@ -50,7 +50,6 @@
 							.attr("id" , "countrycontainer")
 			    			.style("width", width+"px")
 			    			.style("height", height+"px")
-							//.appen("ul")
 							.attr("class" , "sortable");
 
 			
@@ -89,18 +88,56 @@
 				c = cnt;
 				switch(sortorder)
 				{
-					case "-all_aid_total":
-						if(reason == "Agriculture" ) { 
+					case "-all_total_aid":
+						if(res == "Agriculture" ) { 
 							sortorder = "-agriculture_total_aid";
-						} else if(reason == "Law & Justice" ) {
+						} else if(res == "Law & Justice" ) {
 							sortorder = "-law_and_justice_total_aid";
+						} else if(res == "Water" ) {
+							sortorder = "-water_total_aid";
+						} else if(res == "Education" ) {
+							sortorder = "-education_total_aid";
+						} else if(res == "Health" ) {
+							sortorder = "-health_total_aid";
+						} else {
+							sortorder = "-all_total_aid"
 						}
-		  				break;
-		  			case "-all_aid_per_capita":	
-					
-		  				break;
-		  			case "-indicator":
 						
+		  				break;
+		  			case "-all_per_capita_aid":	
+					if(res == "Agriculture" ) { 
+						sortorder = "-agriculture_per_capita_aid";
+					} else if(res == "Law & Justice" ) {
+						sortorder = "-law_and_justice_per_capita_aid";
+						
+					} else if(res == "Water" ) {
+						sortorder = "-water_per_capita_aid";
+						
+					} else if(res == "Education" ) {
+						sortorder = "-education_per_capita_aid";
+						
+					} else if(res == "Health" ) {
+						sortorder = "-health_per_capita_aid";
+						
+					} else {
+						sortorder = "-all_per_capita_aid";
+					}
+					
+						break;
+		  			case "-indicator":
+						if(res == "Agriculture" ) { 
+							sortorder = "-agriculture_indicator_average";
+						} else if(res == "Law & Justice" ) {
+							sortorder = "-llaw_and_justice_indicator_average";
+						} else if(res == "Water" ) {
+							sortorder = "-water_indicator_average";
+						} else if(res == "Education" ) {
+							sortorder = "-education_indicator_average";
+						} else if(res == "Health" ) {
+							sortorder = "-health_indicator_average";
+						} else {
+							sortorder = "-gdp_indicator_average";
+						}
 						break;
 					default:
 						break;
@@ -125,7 +162,7 @@
 				var lowerfactor = (lower  / max_indicator_values[0]);
 				var lower_year_values = i.gdp_indicators_yearly.split(",");
 				
-				if(reason == "Law & Justice" ) {
+				if(res == "Law & Justice" ) {
 					upper = i.law_and_justice_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[4]);
 				    	
@@ -133,7 +170,7 @@
 					lowerfactor = (lower  / max_indicator_values[4]);
 				}
 				
-				if(reason == "Agriculture" ) {
+				if(res == "Agriculture" ) {
 					upper = i.agriculture_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[1]);
 				
@@ -141,7 +178,7 @@
 					lowerfactor = (lower  / max_indicator_values[1]);
 				}
 				
-				if(reason == "Water" ) {
+				if(res == "Water" ) {
 					upper = i.water_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[5]);
 				
@@ -149,7 +186,7 @@
 					lowerfactor = (lower  / max_indicator_values[5]);
 				}
 				
-				if(reason == "Health" ) {
+				if(res == "Health" ) {
 					upper = i.health_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[3]);
 				
@@ -157,7 +194,7 @@
 					lowerfactor = (lower  / max_indicator_values[3]);
 				}
 				
-				if(reason == "Education" ) {
+				if(res == "Education" ) {
 					upper = i.education_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[2]);
 				
