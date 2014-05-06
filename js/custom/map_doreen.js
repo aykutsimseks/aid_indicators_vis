@@ -86,6 +86,7 @@
 			var file = "data/aid_vis_master_table.csv";
 			d3.csv(file, function(err, cnt) {
 				c = cnt;
+				
 				switch(sortorder)
 				{
 					case "-all_total_aid":
@@ -242,13 +243,13 @@
 						d3.select("#hover_bar").selectAll("g").remove()
 						aid_totals = [i.agriculture_total_aid,i.education_total_aid,i.health_total_aid,i.law_and_justice_total_aid,i.water_total_aid]
   						for(ai=0; ai < aid_totals.length; ai++){
-  							if(aid_totals[ai] == null)
-  							{
-  								aid_totals[ai]=0;
+  							if(parseInt(aid_totals[ai]))
+  							{								
+  								aid_totals[ai]=parseInt(aid_totals[ai]);
   							}
   							else
   							{
-  								aid_totals[ai]=parseInt(aid_totals[ai]);
+  								aid_totals[ai]=0;
   							}
   						}
   						horizontal_stacked_bar("#hover_bar",aid_totals);
@@ -317,7 +318,11 @@
 								.style("height","44px")
 								.selectAll("path")
 								.attr("transform", "translate(" + 0 + "," +  0 + ")")
-						
+							var yearly_values = [
+								{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
+								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
+							];
+							half_circle_sptaial("#"+divname,yearly_values,glyph_colors);
 							selected = null;
 						}
 					})
