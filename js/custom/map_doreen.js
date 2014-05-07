@@ -340,6 +340,12 @@
 										.style("height","182px")
 										.selectAll("path")
 										.attr("transform", "translate(" + 116 + "," + 70 + ")")
+							
+							var yearly_values = [
+								{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
+								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
+							];
+							half_circle_spatial("#"+divname,yearly_values,glyph_colors);
 						}
 						else
 						{
@@ -357,11 +363,7 @@
 								.style("height","44px")
 								.selectAll("path")
 								.attr("transform", "translate(" + 0 + "," +  0 + ")")
-							var yearly_values = [
-								{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
-								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
-							];
-							half_circle_sptaial("#"+divname,yearly_values,glyph_colors);
+
 							selected = null;
 						}
 					})

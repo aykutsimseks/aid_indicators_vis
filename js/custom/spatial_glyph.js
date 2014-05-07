@@ -16,14 +16,16 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
  		var total = 0;
  		for(i=0; i < values[j]["yearly_values"].length; i++)
  		{
- 			if(values[j]["yearly_values"][i] == null)
+ 			if(parseInt(values[j]["yearly_values"][i]) || parseFloat(values[j]["yearly_values"][i]))
  			{
- 				values[j]["yearly_values"][i] = 0;
+ 				found++;
+ 				values[j]["yearly_values"][i] = parseInt(values[j]["yearly_values"][i])
+ 				total += values[j]["yearly_values"][i];
+ 				
  			}
  			else
  			{
- 				found++;
- 				total += values[j]["yearly_values"][i];
+				 values[j]["yearly_values"][i] = 0;
  			}
  		}
  		averages[j] = total/found;
@@ -46,8 +48,10 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
  	var svg = d3.select(elem_id).append("svg")
     			.attr("width", (radius+margin)*2)
     			.attr("height", (radius+margin)*2)
+    			
+    			.style("margin-top", "-202px")
   				.append("g")
-    			.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 15) + ")");
+  				.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 15) + ")");
    				
 	var arc0 = d3.svg.arc()
     			//.outerRadius(function(d,i){val = d.data["norm_value"];return (val > 0)?outerRadius*d.data["norm_value"]:innerRadius})
