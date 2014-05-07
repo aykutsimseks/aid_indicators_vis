@@ -7,6 +7,12 @@ function removeoption(valu){
 	}).remove();
 }
 
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+  this.parentNode.appendChild(this);
+  });
+};
+
 function parseDateCustom(str) {
 	str = "01.01." + str;
     var dateParts = str.split(".");
@@ -36,7 +42,7 @@ function dynamicSort(property) {
     var sortOrder = 1;
 	var isnumber = true;
 	
-	console.log(property + " : property msg from util")
+	//console.log(property + " : property msg from util")
 	
 	if(property === "country") 
 	{		

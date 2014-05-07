@@ -162,7 +162,7 @@
 			 	cnt.sort(dynamicSort(sortorder));
 			 	var count = 0; 
 			 	var h =0;
-			 	var selected = null;
+			 	var selected = [];
 			 	cnt.forEach(function(i){
 		 
 				var left = (0) + "px"//((80 * count) + 4) + "px"; 
@@ -229,14 +229,18 @@
 					.attr("data-country",i.country)
 					.attr("data-code", i.country_code)
 					.style("width","75px")
-					.style("height","44px")
+					.style("height","40px")
 					.style("float","left")
+					.style("z-index",2)
 					.style("cursor","pointer")
 				  	.style("position" , "relative")
 					.style("border" , "1px solid")
 					.style("border-color","rgba(200,200,200,.3)")
-					.on("mouseover", function(){ 
-						d3.select("#"+divname).selectAll("path").style("opacity",1);
+					.on("mouseover", function(){
+						if($.inArray(d3.select(this).attr("id"), selected) < 0)
+						{
+							d3.select("#"+divname).selectAll("path").style("opacity",1);
+						}
 						if(res != "Total") {
 							
 							if(res == "Law & Justice" ) {
@@ -307,7 +311,10 @@
 
 					})
 					.on("mouseout",  function(d,i) {
-						d3.select("#"+divname).selectAll("path").style("opacity",.8);
+						if($.inArray(d3.select(this).attr("id"), selected) < 0)
+						{
+							d3.select("#"+divname).selectAll("path").style("opacity",.8);
+						}
 						d3.select("#hover_country")
 								.attr("visibility","hidden");
 						d3.select("#hover_population")
@@ -324,47 +331,54 @@
 						d3.select("#hover_bar").selectAll("g").remove()
 					})
 					.on("click",  function(d,i) {
-						if(!selected)
+						if($.inArray(d3.select(this).attr("id"), selected) < 0)
 						{
-							selected = d3.select(this)
+							d3.select(this).selectAll("path").style("opacity",.35);
+							d3.select(this)
 											.transition()
 											.duration(300)
 											.style("width","306px")
-											.style("height","182px");
+											.style("height","166px");
 									
 							d3.select(this)
 										.select("svg")
 										.transition()
 										.duration(300)
 										.style("width","306px")
-										.style("height","182px")
+										.style("height","166px")
 										.selectAll("path")
-										.attr("transform", "translate(" + 116 + "," + 70 + ")")
+										.attr("transform", "translate(" + 115 + "," + 65 + ")")
 							
 							var yearly_values = [
 								{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
 								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
 							];
-							half_circle_spatial("#"+divname,yearly_values,glyph_colors);
+							half_circle_spatial("#"+d3.select(this).attr("id"),yearly_values,glyph_colors);							
+							selected.push(d3.select(this).attr("id"));
 						}
 						else
 						{
+							d3.select(this).selectAll("path").style("opacity",.8);
 							d3.select(this)
 								.transition()
 								.duration(300)
 								.style("width","75px")
-								.style("height","44px")
+								.style("height","40px")
 						
 							d3.select(this)
 								.select("svg")
 								.transition()
 								.duration(300)
 								.style("width","75px")
-								.style("height","44px")
+								.style("height","40px")
 								.selectAll("path")
 								.attr("transform", "translate(" + 0 + "," +  0 + ")")
-
-							selected = null;
+							
+							selected.pop(d3.select(this).attr("id"))
+							for(k=1; k<4; k++)
+							{
+								d3.select(this).selectAll("svg")[0][k].remove()
+							}
 						}
 					})
 					.attr("id", divname ); 
@@ -372,7 +386,7 @@
 					count ++;
 					var country_text = rec.append('div')
 		      							.attr('class', 'country_text')
-		      							.style('top','11px')
+		      							.style('top','8px')
 				  						.style("position" , "absolute")
 		      							.text(i.country);
 					

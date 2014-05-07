@@ -36,8 +36,8 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
  	var max1 = Math.max.apply(Math, values[1]["yearly_values"])
  	
 	
-	var radius  = 100;
-	var margin = 22;
+	var radius  = 65;
+	var margin = 65;
 	//var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
 
     var outerRadius = radius;
@@ -45,13 +45,15 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
 	var innerRadius = radius - arcWidth;
 				
 	//Make an SVG Container
- 	var svg = d3.select(elem_id).append("svg")
-    			.attr("width", (radius+margin)*2)
-    			.attr("height", (radius+margin)*2)
-    			
-    			.style("margin-top", "-202px")
+ 	var svg = d3.select(elem_id)
+ 				.append("svg")
+ 				.moveToFront()
+    			.attr("width", (radius+margin)*2 + "px")
+    			.attr("height", (radius+margin+4)*2 + "px")
+    			.style("margin-top", "-158px")
+    			.style("z-index",5)
   				.append("g")
-  				.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 15) + ")");
+  				.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 60) + ")");
    				
 	var arc0 = d3.svg.arc()
     			//.outerRadius(function(d,i){val = d.data["norm_value"];return (val > 0)?outerRadius*d.data["norm_value"]:innerRadius})
@@ -90,36 +92,32 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
       				  .style("cursor","default")
 	
 	var myLine = svg.append("line")
-    				.attr("x1", -(radius + margin))
+    				.attr("x1", -(radius + 28))
     				.attr("y1", 0)
-    				.attr("x2", (radius+margin))
+    				.attr("x2", (radius + 28))
     				.attr("y2", 0)
-    				.style("stroke", "#aaa");
+    				.style("stroke", "rgba(200,200,200,.8)");
     				
     svg.append('text')
-      	.attr("transform","translate(" + -(radius + margin) + " , " + (-4) + ")")
+      	.attr("transform","translate(" + -(radius+28) + " , " + (-4) + ")")
       	.style('font-size',10)
       	.style("fill",colors[0])
       	.text("1960")
       	
     svg.append('text')
-      	.attr("transform","translate(" + (radius + margin - 20) + " , " + (-4) + ")")
+      	.attr("transform","translate(" + (radius + 4) + " , " + (-4) + ")")
       	.style('font-size',10)
       	.style("fill",colors[0])
       	.text("2012")
 	
 	svg.append('text')
-      	.attr("transform","translate(" + -(radius + margin) + " , " + 12 + ")")
+      	.attr("transform","translate(" + -(radius + 28) + " , " + 12 + ")")
       	.style('font-size',10)
       	.style("fill",colors[1])
       	.text("2012")
       	
-    var vis = d3.select("body").append("svg")
-	var pi = Math.PI;
-
-      	
     svg.append('text')
-      	.attr("transform","translate(" + (radius + margin - 20) + " , " + 12 + ")")
+      	.attr("transform","translate(" + (radius+4) + " , " + 12 + ")")
       	.style('font-size',10)
       	.style("fill",colors[1])
       	.text("1960")

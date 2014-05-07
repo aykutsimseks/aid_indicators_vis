@@ -67,7 +67,8 @@ function drawDonut(sortorder , reason) {
            				d.endAngle = i(t);
          				return arc(d);
        				}
-  				})					
+  				})
+  				//.attr('d',arc)					
   				.attr("id", function(d,i){return "sa"+i;});
 					
 			 /*Create the circle for each block */
@@ -268,5 +269,5 @@ function drawDonut(sortorder , reason) {
 						console.log(d.data.purpose + "   : reason clicked msg from donul selector");
 						
       			})
-	 }, 700);
+	 }, 300);
 }
