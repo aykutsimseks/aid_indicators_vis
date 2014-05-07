@@ -59,6 +59,8 @@ function dynamicSort(property) {
 			a[property] = a[property].toLowerCase(); 
 			b[property] = b[property].toLowerCase();
 	        var result = a[property] - b[property];
+	        a[property] = toTitleCase(a[property]); 
+			b[property] = toTitleCase(b[property]);
 	        return result * sortOrder;
 	    }
 	}
@@ -127,6 +129,8 @@ function toTitleCase(str)
 }
 
 function numberWithCommas(x) {
+	if(x == null)
+		return "0"
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
