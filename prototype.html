@@ -29,7 +29,8 @@
 	var health = [];
 	var education = [];
 	var law = [];
-	
+	var _reason = "Total";
+	$('#hiddenreason').val(_reason);
 	readsparklinedata();
 	
 
@@ -37,11 +38,17 @@
 			
 			$('#dropselect').change( function(){
 				_reason = $('#hiddenreason').val();
+				if(_reason != "Total") {
+					
+					console.log("if total does not exist gota add total ==> " + _reason);
+				} else {
+					console.log("gota remove total");
+				}
 				_order  = $('#dropselect').val();
 				drawDoreen(_order , _reason);
 			});
 			
-			var _reason = "Total";
+			
 			var _order  = $('#dropselect').val();
 			drawDoreen( _order , _reason );
 			drawDonut();
@@ -72,6 +79,7 @@
 		  <option value="country" selected="selected">Country Name</option>
 		  <option value="-population">Population</option>
 		  <option value="-all_total_aid">Total Aid</option>
+		  <option value="-all_total_aid-">Aid for reason</option>
 		  <option value="-all_per_capita_aid">Aid Per Capita</option>
 		  <option value="-indicator">Indicator</option>
 		</select>
