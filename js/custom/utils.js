@@ -71,12 +71,14 @@ function dynamicSort(property) {
 		
 
 	    return function (a,b) {
-			a[property] = a[property].toLowerCase(); 
-			b[property] = b[property].toLowerCase();
-	        var result = a[property] - b[property];
+			a[property] = a[property].toLowerCase().trim(); 
+			b[property] = b[property].toLowerCase().trim();
+	        var result = 0;
+			if(a[property]< b[property]) result =  -1;
+			if(a[property]> b[property]) result =  1;
 	        a[property] = toTitleCase(a[property]); 
 			b[property] = toTitleCase(b[property]);
-	        return result * sortOrder;
+			return result;
 	    }
 	}
 
