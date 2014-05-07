@@ -1,6 +1,7 @@
 function addoption(txt, valu){
 	$("#dropselect")[0].options.add( new Option(txt,valu) );
 }
+
 function removeoption(valu){
 	$("#dropselect").children().filter(function(index, option) {
 	    return option.value===valu;
@@ -12,6 +13,37 @@ d3.selection.prototype.moveToFront = function() {
   this.parentNode.appendChild(this);
   });
 };
+
+function getIndicatorDef(res){
+	var definiton = [
+					  "<span style='font-size:9px;'>Gross Domestic Product (GDP)</span></br><span style='font-size:8px;'>(current US$, per capita)</span>",
+					  "<span style='font-size:9px;'>Agricultural irrigated land</span></br><span style='font-size:8px;'>(% of total agricultural land)</span>",
+					  "<span style='font-size:9px;'>Primary completion rate</span></br><span style='font-size:8px;'>(% of relevant age group)</span>",
+					  "<span style='font-size:9px;'>Maternal mortality ratio</span></br><span style='font-size:8px;'>(per 100,000 live births)</span>",
+					  "<span style='font-size:9px;'>Informal payments to public officials</span></br><span style='font-size:8px;'>(% of firms)</span>",
+					  "<span style='font-size:9px;'>Improved water source</span></br><span style='font-size:8px;'>(% of population with access)</span>"
+					  ]
+	if(res == "Total" || res == "All" || res == "") {
+		return definiton[0];
+	}
+	else if(res == "Law & Justice" ) {
+		return definiton[4];
+	}
+	else if(res == "Agriculture" ) {
+		return definiton[1];
+	}
+	else if(res == "Water" ) {
+		return definiton[5];
+	}			
+	else if(res == "Health" ) {
+		return definiton[3];
+	}
+	else if(res == "Education" ) {
+		return definiton[2];
+	}
+	return "unknown"
+
+}
 
 function parseDateCustom(str) {
 	str = "01.01." + str;
@@ -83,8 +115,6 @@ function dynamicSort(property) {
 	}
 
 }
-
-
 
 function readsparklinedata() {
 	
@@ -181,13 +211,6 @@ function fillHoverContent(d,map_id)
 	}   		
 	return content;
 }
-
-function queryMongoDB(collection,query,sort,limit,jsondata)
-{
-
-}
-
-
 
 // Color Generator
 //theColorBegin = "#D6EBFD";

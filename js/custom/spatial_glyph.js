@@ -1,4 +1,4 @@
-function half_circle_spatial (elem_id,values,colors,range1, range2){
+function half_circle_spatial (elem_id,values,colors,large_height){
 	yearly_values = []
 	/*
 	values.forEach(function(d) {
@@ -8,36 +8,52 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
  	});
  	*/
  	var start_year = 1960;
- 	var averages = [];
+ 	var averages = [0,0];
  	var arc_lock = false;
  	for(j=0; j < 2; j++)
  	{
  		var found = 0;
  		var total = 0;
+ 		
+		
  		for(i=0; i < values[j]["yearly_values"].length; i++)
  		{
- 			if(parseInt(values[j]["yearly_values"][i]) || parseFloat(values[j]["yearly_values"][i]))
+ 			if(Number(values[j]["yearly_values"][i]) > 0)
  			{
  				found++;
- 				values[j]["yearly_values"][i] = parseInt(values[j]["yearly_values"][i])
- 				total += values[j]["yearly_values"][i];
- 				
+ 				values[j]["yearly_values"][i] = Number(values[j]["yearly_values"][i])
+ 				total += values[j]["yearly_values"][i]; 				
  			}
  			else
  			{
 				 values[j]["yearly_values"][i] = 0;
  			}
  		}
- 		averages[j] = total/found;
- 	}
- 	
+ 		while(values[j]["yearly_values"].length < 54)
+ 		{
+ 			 values[j]["yearly_values"].push(0);
+ 		}
+		 while(values[j]["yearly_values"].length > 54)
+ 		{
+ 		 	values[j]["yearly_values"].pop();
+ 		}
+ 
+ 		if(found > 0)
+ 		{
+ 			averages[j] = total/found;
+ 		}
+ 		//alert(JSON.stringify(values[j]))
+ 		 //alert(values[j]["yearly_values"].length + " " + values[j]["yearly_values"])
+ 	}	
  	var number_of_years = values[0]["yearly_values"].length/2;
- 	var max0 = Math.max.apply(Math, values[0]["yearly_values"])
- 	var max1 = Math.max.apply(Math, values[1]["yearly_values"])
+ 	var max0 = Number.MAX_VALUE;
+ 	max0 = Math.max.apply(Math, values[0]["yearly_values"])
+ 	var max1= Number.MAX_VALUE;
+ 	max1 = Math.max.apply(Math, values[1]["yearly_values"])
  	
-	
-	var radius  = 65;
-	var margin = 65;
+ 	var margin = 28;
+	large_height = large_height - margin;
+	var radius  = large_height/2;
 	//var colors = ["#ff9900","#CC6633"]//,"#ae3a3a"];
 
     var outerRadius = radius;
@@ -48,12 +64,12 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
  	var svg = d3.select(elem_id)
  				.append("svg")
  				.moveToFront()
-    			.attr("width", (radius+margin)*2 + "px")
-    			.attr("height", (radius+margin+4)*2 + "px")
-    			.style("margin-top", "-158px")
+    			.attr("width", (radius+margin+85)*2 + "px")
+    			.attr("height", (radius+margin+6)*2 + "px")
+    			.style("margin-top", -large_height-margin*2)
     			.style("z-index",5)
   				.append("g")
-  				.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin - 60) + ")");
+  				.attr("transform", "translate(" + (radius+margin+58) + "," + (radius+16) + ")");
    				
 	var arc0 = d3.svg.arc()
     			//.outerRadius(function(d,i){val = d.data["norm_value"];return (val > 0)?outerRadius*d.data["norm_value"]:innerRadius})
@@ -78,7 +94,7 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
     			.endAngle(3.5*Math.PI);
 	
 	var year_text = svg.append('text')
-      				  .attr("transform","translate(" + ( - (radius + margin)) + " , " + (- (radius + margin - 36)) + ")")
+      				  .attr("transform","translate(" + ( - (radius + margin + 50)) + " , " + (- (radius + margin - 46)) + ")")
       				  .style("fill","#666")
       				  .style('visibility','hidden')
       				  .attr('font-size',28)
@@ -86,8 +102,9 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
       				  .style("cursor","default")
       				  
     var value_text = svg.append('text')
-      				  .attr("transform","translate(" + ( - (radius + margin - 10)) + " , " + (- (radius + margin - 50)) + ")")
+      				  .attr("transform","translate(" + ( - (radius + margin + 40)) + " , " + (- (radius + margin - 66)) + ")")
       				  .style("fill","#666")
+      				  .style("font-size","12px")
       				  .style('visibility','hidden')
       				  .style("cursor","default")
 	
@@ -108,13 +125,13 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
       	.attr("transform","translate(" + (radius + 4) + " , " + (-4) + ")")
       	.style('font-size',10)
       	.style("fill",colors[0])
-      	.text("2012")
+      	.text("2013")
 	
 	svg.append('text')
       	.attr("transform","translate(" + -(radius + 28) + " , " + 12 + ")")
       	.style('font-size',10)
       	.style("fill",colors[1])
-      	.text("2012")
+      	.text("2013")
       	
     svg.append('text')
       	.attr("transform","translate(" + (radius+4) + " , " + 12 + ")")
@@ -140,7 +157,7 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
 					.text(start_year+i)
 					.style('visibility','visible')
 				value_text
-					.text(d.data.toFixed(1))
+					.text("$" + numberWithCommas(d.data.toFixed(0)))
 					.style('visibility','visible')
 			}
        })
@@ -203,8 +220,13 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
 				year_text
 					.text(start_year+i)
 					.style('visibility','visible')
+				if(colors[1] == "#FFAD33"){
+					val_text =  "$" + numberWithCommas(d.data.toFixed(0))
+				} else{
+					val_text =  d.data.toFixed(1)
+				}
 				value_text
-					.text(d.data.toFixed(1))
+					.text(val_text)
 					.style('visibility','visible')
 			}
        })
@@ -218,6 +240,7 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
        		}
        })
        .on("click",function(d,i) {
+       		/*
        		svg.selectAll(".arc0").style("opacity",.7);
        		svg.selectAll(".arc1").style("opacity",.7);
        		year_text.style('visibility','hidden')
@@ -238,6 +261,7 @@ function half_circle_spatial (elem_id,values,colors,range1, range2){
        		{
        			arc_lock = false;
        		}
+       		*/
        })
       .transition().delay(function(d, i) { return i * 10; }).duration(10)
   	  .attrTween('d', function(d) {

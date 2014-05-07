@@ -266,7 +266,7 @@ function drawDonut(sortorder , reason) {
 						 $('#hiddenreason').val(d.data.purpose);
 						_reason =d.data.purpose;
 						drawDoreen($('#dropselect').val() , d.data.purpose);
-						console.log(d.data.purpose + "   : reason clicked msg from donul selector");
+						//console.log(d.data.purpose + "   : reason clicked msg from donul selector");
 						
       			})
 	 }, 300);

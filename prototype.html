@@ -32,8 +32,8 @@
 	var _reason = "Total";
 	$('#hiddenreason').val(_reason);
 	
-	readsparklinedata();
-	
+	//readsparklinedata();
+	drawDonut();
 
 		$(function(){
 			
@@ -47,7 +47,6 @@
 			
 			var _order  = $('#dropselect').val();
 			drawDoreen( _order , _reason );
-			drawDonut();
 	 });
 	 
 	 
@@ -80,7 +79,7 @@
 		  <option value="-indicator">Indicator</option>
 		</select>
 	</div>
-    <div id='sample_glyph' style="top:12px;left:1140px;position: absolute;  border-radius: 10px;"></div>
+    <div id='sample_glyph' style="top:12px;left:1180px;position: absolute;  border-radius: 10px;"></div>
 	<div id='map_canvas' style="top:56px;left:183px;position: absolute;  border-radius: 10px;"></div>
 	<div id='donut_selector' style="top:45px;left:10px;position: absolute;"></div>
 	<div id='circle_hover' style="top:230px;left: 5px;position: absolute;"></div>

@@ -1,7 +1,7 @@
-function half_circle (elem_id,values,colors,range1, range2){ 
+function half_circle (elem_id,values,colors,height){ 
 
-	var radius  = 12;
-	var margin = 26;
+	var radius  = height/2;
+	var margin = 0;
 	//var colors = //,"#ae3a3a"];
 
     var outerRadius = radius;
@@ -10,11 +10,12 @@ function half_circle (elem_id,values,colors,range1, range2){
 				
 	//Make an SVG Container
  	var svg = d3.select(elem_id).append("svg")
-    			.attr("width", (radius+margin)*2)
-    			.attr("height", (radius+margin)*2-36)
+    			.attr("width", (radius+margin+12)*2)
+    			.attr("height", (radius+margin)*2)
     			//.style("border-radius","12px")
+    			.style("top",radius/2 + "px")
   				.append("g")
-    			.attr("transform", "translate(" + (radius+margin) + "," + (radius+margin-16) + ")")
+    			.attr("transform", "translate(" + (radius+margin+12) + "," + (radius+margin) + ")")
                 //.attr("pointer-events", "none")
                                   
  	var g = svg.append("g")
@@ -49,7 +50,7 @@ function half_circle (elem_id,values,colors,range1, range2){
   		})					
   	.attr("id", function(d,i){return "sa"+i;})
   	
-  	/*
+  	
   	g
 	.append("text") 
     .attr("transform", function(d,i) {
@@ -68,7 +69,7 @@ function half_circle (elem_id,values,colors,range1, range2){
     .attr("text-anchor", "middle")
     .style("fill", function(d,i) {return colors[i]})
     //.text(function(d, i) { return ((i==1)?"":"$") + numberWithCommas(values[i]["value"]); });
-	*/
+
 	
 			  						
 };

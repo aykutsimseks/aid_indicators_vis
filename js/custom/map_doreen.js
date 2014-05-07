@@ -1,9 +1,10 @@
 	var glyph_colors = ["#ff9900","#CC6633"];
 	//var max_per_capita_aids = [14721,4497,10145,1615,3517,1153]
-	var max_per_capita_aids = [1000,200,200,200,200,200]
+	var max_per_capita_aids = [1500,300,300,300,300,300]
 	//var max_indicator_values = [46075,70.2,142.3,1330,310.3,100]
-	var max_indicator_values = [5000,10,65,200,15,60];
-	
+	var max_indicator_values = [6000,8,80,400,60,100];
+	var box_height = 44;
+	var box_width = 68;
 	function drawDoreen(sortorder , res) 
 	{
 		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
@@ -17,8 +18,7 @@
 		switch(res)
 		{
 			case "Agriculture":
-  				glyph_colors = ["#AED980","#6FBC1D"];
-				
+  				glyph_colors = ["#AED980","#6FBC1D"];			
   				break;
   			case "Education":
   				glyph_colors = ["#D4A36E","#BC6F1D"];
@@ -42,7 +42,7 @@
 		d3.select("#glyph_sample").remove();
 		
 		
-		$("#reasondiv").text(res + " aid");
+		//$("#reasondiv").text(getIndicatorDef(res));
 
 		var timer = setTimeout(function() {
 			var width = 1078;
@@ -64,29 +64,38 @@
 			
 			//create sample rect
 			var rect_sample = d3.select("#sample_glyph").append("div")
-					.style("width","125px")
-					.style("height","44px")
+					.style("width","50px")
+					.style("height","60px")
 					.style("float","left")
 				  	.style("position" , "relative")
 					.attr("id", "glyph_sample" )
-			var values = [{"value":max_per_cap,"norm_value": 1.2},{"value":max_pop,"norm_value":1.2}];
-			half_circle("#glyph_sample",values,glyph_colors);
+					
+			var values = [{"value":max_per_cap,"norm_value": .7},{"value":max_pop,"norm_value":.7}];
+			half_circle("#glyph_sample",values,glyph_colors,box_height);
 			rect_sample.append('div')
 						.attr('id','legendtext1')
-		      			.style('top','12px')
-		      			.style('left','55px')
+		    			.style("width","200px")
+		      			.style('top','10px')
+		      			.style('left', (-185) + 'px')
 				  		.style("position" , "absolute")
-				  		.style('font-weight',300)
-				  		.style('color','#333')
-		      			.text("Per capita")
+				  		.style('font-weight',500)
+				  		.style('font-size','9px')
+				  		.style('color','#333')				  		
+				  		.style('text-align','right')
+		      			.html(res + " aid per capita")
+		      			
 		    rect_sample.append('div')
 		    			.attr('id','legendtext2')
-		      			.style('top','26px')
-		      			.style('left','55px')
+		    			.style("width","200px")
+		      			.style('top','24px')
+		      			.style('left', (-185) + 'px')
 				  		.style("position" , "absolute")
-				  		.style('font-weight',300)
-				  		.style('color','#333')
-		      			.text("Indicator")
+				  		.style('font-weight',500)
+				  		.style('line-height','7px')
+				  		.style('color','#333')				  		
+				  		.style('text-align','right')
+		      			.html(getIndicatorDef(res))
+		      			
 			rect_sample.selectAll("path").style("cursor","default");
 	
 	
@@ -96,6 +105,8 @@
 			var file = "data/aid_vis_master_table.csv";
 			d3.csv(file, function(err, cnt) {
 				c = cnt;
+				
+				cnt.forEach(function(i){i.gdp_indicator_yearly = (i.gdp_indicator_yearly.split(",").map(function(x) { return x / i.population; })).join(",")})
 				var totalaidreason= 0;
 				var totalaid = 0;
 				switch(sortorder)
@@ -169,67 +180,75 @@
 				var top = (0) + "px"//((75 * h) + 4) + "px";
 	
 				var divname = "circle_hover"+ "_"+ i.country_code;		
-				
-				
-				var upper = i.all_per_capita_aid;
-				var upperfactor = (upper/max_per_capita_aids[0]);
-				var upper_year_values = i.all_aid_yearly.split(",");
-				
-				var lower = i.gdp_indicator_average/i.population;
-				var lowerfactor = (lower  / max_indicator_values[0]);
-				var lower_year_values = i.gdp_indicators_yearly.split(",");
+				var upper, upperfactor,upper_year_values,lower,lowerfactor,lower_year_values;
 				totalaid = i.all_total_aid;
+
 				if(res == "Law & Justice" ) {
 					totalaidreason = i.law_and_justice_total_aid;
 					upper = i.law_and_justice_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[4]);
+				    upper_year_values = i.law_and_justice_aid_yearly.split(",");
 				    	
 					lower = i.law_and_justice_indicator_average;
 					lowerfactor = (lower  / max_indicator_values[4]);
+					lower_year_values = i.law_and_justice_indicator_yearly.split(",");
 				}
-				
-				if(res == "Agriculture" ) {
+				else if(res == "Agriculture" ) {
 					totalaidreason = i.agriculture_total_aid;
 					upper = i.agriculture_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[1]);
+					upper_year_values = i.agriculture_aid_yearly.split(",");
 				
 					lower = i.agriculture_indicator_average;
 					lowerfactor = (lower  / max_indicator_values[1]);
+					lower_year_values = i.agriculture_indicator_yearly.split(",");
 				}
-				
-				if(res == "Water" ) {
+				else if(res == "Water" ) {
 					totalaidreason = i.water_total_aid;
 					upper = i.water_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[5]);
-				
+					upper_year_values = i.water_aid_yearly.split(",");
+					
 					lower = i.water_indicator_average;
 					lowerfactor = (lower  / max_indicator_values[5]);
+					lower_year_values = i.water_indicator_yearly.split(",");
 				}
-				
-				if(res == "Health" ) {
+				else if(res == "Health" ) {
 					totalaidreason = i.health_total_aid;
 					upper = i.health_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[3]);
+					upper_year_values = i.health_aid_yearly.split(",");
 				
 					lower = i.health_indicator_average;
 					lowerfactor = (lower  / max_indicator_values[3]);
+					lower_year_values = i.health_indicator_yearly.split(",");
 				}
-				
-				if(res == "Education" ) {
+				else if(res == "Education" ) {
 					totalaidreason = i.education_total_aid;
 					upper = i.education_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[2]);
+					upper_year_values = i.education_aid_yearly.split(",");
 				
 					lower = i.education_indicator_average;
 					lowerfactor = (lower/max_indicator_values[2]);
+					lower_year_values = i.education_indicator_yearly.split(",");
+				}
+				else {
+					upper = i.all_per_capita_aid;
+					upperfactor = (upper/max_per_capita_aids[0]);
+					upper_year_values = i.all_aid_yearly.split(",");
+				
+					lower = i.gdp_indicator_average/i.population;
+					lowerfactor = (lower  / max_indicator_values[0]);
+					lower_year_values = i.gdp_indicator_yearly.split(",");
 				}
 				
 
 				 var rec= svg.append("li")
 					.attr("data-country",i.country)
 					.attr("data-code", i.country_code)
-					.style("width","75px")
-					.style("height","40px")
+					.style("width", box_width + "px")
+					.style("height",box_height + "px")
 					.style("float","left")
 					.style("z-index",2)
 					.style("cursor","pointer")
@@ -334,50 +353,62 @@
 						if($.inArray(d3.select(this).attr("id"), selected) < 0)
 						{
 							d3.select(this).selectAll("path").style("opacity",.35);
+							selected.push(d3.select(this).attr("id"));
+							n = 6;
+							large_width = (n*box_width + (n-1)*2);
+							large_height = (n*box_height + (n-1)*2);
 							d3.select(this)
 											.transition()
 											.duration(300)
-											.style("width","306px")
-											.style("height","166px");
-									
+											.style("width", large_width + "px")
+											.style("height", large_height + "px");
+								
 							d3.select(this)
 										.select("svg")
 										.transition()
 										.duration(300)
-										.style("width","306px")
-										.style("height","166px")
+										.style("width", large_width + "px")
+										.style("height", large_height + "px")
 										.selectAll("path")
-										.attr("transform", "translate(" + 115 + "," + 65 + ")")
+										.attr("transform", "translate(" + (large_width-box_width)/2 + "," + (large_height-box_height+16)/2 + ")")
 							
 							var yearly_values = [
 								{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
 								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
 							];
-							half_circle_spatial("#"+d3.select(this).attr("id"),yearly_values,glyph_colors);							
-							selected.push(d3.select(this).attr("id"));
+
+							half_circle_spatial("#"+d3.select(this).attr("id"),yearly_values,glyph_colors,large_height);							
 						}
 						else
 						{
+														
+							selected.pop(d3.select(this).attr("id"));
 							d3.select(this).selectAll("path").style("opacity",.8);
 							d3.select(this)
 								.transition()
 								.duration(300)
-								.style("width","75px")
-								.style("height","40px")
+								.style("width",box_width + "px")
+								.style("height", box_height + "px")
 						
 							d3.select(this)
 								.select("svg")
 								.transition()
 								.duration(300)
-								.style("width","75px")
-								.style("height","40px")
+								.style("width",box_width + "px")
+								.style("height", box_height + "px")
 								.selectAll("path")
 								.attr("transform", "translate(" + 0 + "," +  0 + ")")
-							
-							selected.pop(d3.select(this).attr("id"))
+
 							for(k=1; k<4; k++)
 							{
-								d3.select(this).selectAll("svg")[0][k].remove()
+								if(d3.select(this).selectAll("svg")[0][k])
+								{
+									d3.select(this).selectAll("svg")[0][k].remove()
+								}
+								else
+								{
+									break;
+								}
 							}
 						}
 					})
@@ -396,7 +427,7 @@
 						{"value":upper,"norm_value": upperfactor,"yearly_values":upper_year_values},
 						{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
 						];
-					half_circle("#"+divname,values,glyph_colors);
+					half_circle("#"+divname,values,glyph_colors,box_height);
 					
 	
 			  });
