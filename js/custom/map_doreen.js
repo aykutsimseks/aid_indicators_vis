@@ -7,10 +7,18 @@
 	function drawDoreen(sortorder , res) 
 	{
 		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
+		removeoption("-all_total_aid_reason");
+		removeoption("-all_total_aid");
+		addoption("Aid for reason","-all_total_aid_reason");
+		addoption("Total Aid","-all_total_aid")
+		$("#dropselect").val( sortorder ).prop('selected',true);
+		
+		
 		switch(res)
 		{
 			case "Agriculture":
   				glyph_colors = ["#AED980","#6FBC1D"];
+				
   				break;
   			case "Education":
   				glyph_colors = ["#D4A36E","#BC6F1D"];
@@ -25,7 +33,8 @@
   				glyph_colors = ["#A4D4E3","#1D95B9"];
   				break;
 			default:
-  				 glyph_colors = ["#FFCE85","#FFAD33"];
+				removeoption("-all_total_aid_reason");
+  				glyph_colors = ["#FFCE85","#FFAD33"];
 		}
 		
 		
@@ -83,23 +92,30 @@
 	
 			//read the file and get country + code
 			//var file = "data/aiddata_final_education_health_water.csv";
+			
 			var file = "data/aid_vis_master_table.csv";
 			d3.csv(file, function(err, cnt) {
 				c = cnt;
-				
+				var totalaidreason= 0;
+				var totalaid = 0;
 				switch(sortorder)
 				{
-					case "-all_total_aid":
+					case "-all_total_aid_reason":
 						if(res == "Agriculture" ) { 
 							sortorder = "-agriculture_total_aid";
+
 						} else if(res == "Law & Justice" ) {
 							sortorder = "-law_and_justice_total_aid";
+							
 						} else if(res == "Water" ) {
 							sortorder = "-water_total_aid";
+							
 						} else if(res == "Education" ) {
 							sortorder = "-education_total_aid";
+							
 						} else if(res == "Health" ) {
 							sortorder = "-health_total_aid";
+							
 						} else {
 							sortorder = "-all_total_aid"
 						}
@@ -162,8 +178,9 @@
 				var lower = i.gdp_indicator_average/i.population;
 				var lowerfactor = (lower  / max_indicator_values[0]);
 				var lower_year_values = i.gdp_indicators_yearly.split(",");
-				
+				totalaid = i.all_total_aid;
 				if(res == "Law & Justice" ) {
+					totalaidreason = i.law_and_justice_total_aid;
 					upper = i.law_and_justice_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[4]);
 				    	
@@ -172,6 +189,7 @@
 				}
 				
 				if(res == "Agriculture" ) {
+					totalaidreason = i.agriculture_total_aid;
 					upper = i.agriculture_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[1]);
 				
@@ -180,6 +198,7 @@
 				}
 				
 				if(res == "Water" ) {
+					totalaidreason = i.water_total_aid;
 					upper = i.water_per_capita_aid;
 					upperfactor = (upper /max_per_capita_aids[5]);
 				
@@ -188,6 +207,7 @@
 				}
 				
 				if(res == "Health" ) {
+					totalaidreason = i.health_total_aid;
 					upper = i.health_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[3]);
 				
@@ -196,6 +216,7 @@
 				}
 				
 				if(res == "Education" ) {
+					totalaidreason = i.education_total_aid;
 					upper = i.education_per_capita_aid;
 					upperfactor = (upper/max_per_capita_aids[2]);
 				
@@ -216,6 +237,36 @@
 					.style("border-color","rgba(200,200,200,.3)")
 					.on("mouseover", function(){ 
 						d3.select("#"+divname).selectAll("path").style("opacity",1);
+						if(res != "Total") {
+							
+							if(res == "Law & Justice" ) {
+								totalaidreason = i.law_and_justice_total_aid;
+							} else if(res == "Agriculture" ) {
+								totalaidreason = i.agriculture_total_aid;
+								
+							}else if(res == "Water" ) {
+								totalaidreason = i.water_total_aid;
+								
+							}else if(res == "Health" ) {
+								totalaidreason = i.health_total_aid;
+								
+							}else if(res == "Education" ) {
+								totalaidreason = i.education_total_aid;
+								
+							}else 
+							{
+								totalaidreason =  0;
+							}
+							
+							d3.select("#hover_totalaidreason")
+							.attr("visibility","visible")
+							.text("Reason Total Aid:      " + 
+							"$" + numberWithCommas(totalaidreason));
+						} else {
+							d3.select("#hover_totalaidreason")
+							.attr("visibility","hidden");
+						}
+						//#hover_totalaidreason
 						d3.select("#hover_country")
 						.attr("visibility","visible")
 						.text($(this).attr("data-country"));
@@ -229,7 +280,7 @@
 						d3.select("#hover_totalaid")
 						.attr("visibility","visible")
 						.text("Total Aid:            " + 
-						"$" + numberWithCommas(upper * i.population));
+						"$" + numberWithCommas(i.all_total_aid));
 			
 						
 						d3.select("#hover_aidpercapita")
@@ -268,19 +319,7 @@
 						d3.select("#hover_clicktoseemore")
 								.attr("visibility","hidden");
 								
-								
-						d3.select("#hover_totalaidhealth")
-								.attr("visibility","hidden");
-						d3.select("#hover_totalaidlaw")
-								.attr("visibility","hidden");
-						
-						d3.select("#hover_totalaideducation")
-								.attr("visibility","hidden");
-						
-						d3.select("#hover_totalaidwater")
-								.attr("visibility","hidden");
-						
-						d3.select("#hover_totalaidagriculture")
+						d3.select("#hover_totalaidreason")
 								.attr("visibility","hidden");
 						d3.select("#hover_bar").selectAll("g").remove()
 					})

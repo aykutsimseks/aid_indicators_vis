@@ -34,7 +34,7 @@ $(function(){
 					    .style("fill","#666")
 					    .text("Country Name")
 					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',-2)')
+						.attr('transform','translate(-'+ (radius-margin) + ',-8)')
 	
 	var circle_aidpercapita = g.append('text')
 					 	.attr('id','hover_aidpercapita')
@@ -42,10 +42,18 @@ $(function(){
 					    .style("fill","#666")
 					    .text("Country Name")
 					    .attr("visibility","hidden")
-						.attr('transform','translate(-'+ (radius-margin) + ',13)');
-						
+						.attr('transform','translate(-'+ (radius-margin) + ',6)');
 	
-	var circle_aidpercapita = g.append('text')
+	var circle_totalaidreason = g.append('text')
+					 	.attr('id','hover_totalaidreason')
+					    .attr('class', 'circle_hover')
+					    .style("fill","#666")
+					    .text("Country Name")
+					    .attr("visibility","hidden")
+						.attr('transform','translate(-'+ (radius-margin) + ',18)')
+	
+	
+	var circle_clicktosee = g.append('text')
 					 	.attr('id','hover_clicktoseemore')
 					    .attr('class', 'circle_hover')
 					    .style("fill","#666")
@@ -53,10 +61,10 @@ $(function(){
 					    .style("font-size",9)
 					    .attr("visibility","hidden")
 					    .attr("text-anchor","begin")
-						.attr('transform','translate('+ (15) + ',42)')
+						.attr('transform','translate('+ (15) + ',72)')
 	
 	g.append("g").attr('id','hover_bar')
-				 .attr('transform','translate(-85,15)')
+				 .attr('transform','translate(-85,35)')
 				
 	
 	  

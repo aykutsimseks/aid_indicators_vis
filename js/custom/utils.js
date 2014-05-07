@@ -1,3 +1,12 @@
+function addoption(txt, valu){
+	$("#dropselect")[0].options.add( new Option(txt,valu) );
+}
+function removeoption(valu){
+	$("#dropselect").children().filter(function(index, option) {
+	    return option.value===valu;
+	}).remove();
+}
+
 function parseDateCustom(str) {
 	str = "01.01." + str;
     var dateParts = str.split(".");
