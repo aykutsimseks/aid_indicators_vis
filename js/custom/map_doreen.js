@@ -393,8 +393,10 @@
 						d3.select("#hover_bar").selectAll("g").remove()
 					})
 					.on("click",  function(d,i) {
-						if($.inArray(d3.select(this).attr("id"), selected) < 0 || d3.select("#check_box")[0][0].checked)
+						console.log(d3.select(this));
+						if(($.inArray(d3.select(this).attr("id"), selected) < 0 || d3.select("#check_box")[0][0].checked) && (d3.select(this)[0][0].clientHeight < 200))
 						{
+
 							d3.select(this).selectAll("path").style("opacity",.35);
 							selected.push(d3.select(this).attr("id"));
 							n = 6;
