@@ -128,8 +128,9 @@
 				c = cnt;
 
 				cnt.forEach(function(i){
-	
-				i.gdp_indicator_yearly = (i.gdp_indicator_yearly.split(",").map(function(x) { return x / i.population; })).join(",")})
+					i.gdp_indicator_yearly = (i.gdp_indicator_yearly.split(",").map(function(x) { return x / i.population; })).join(",")
+					i.gdp_indicator_average = Number(i.gdp_indicator_average) / i.population;
+				})
 				var totalaidreason= 0;
 				var totalaid = 0;
 				switch(sortorder)
@@ -269,7 +270,7 @@
 					upperfactor = (upper/max_per_capita_aids[0]);
 					upper_year_values = i.all_aid_yearly.split(",");
 				
-					lower = i.gdp_indicator_average/i.population;
+					lower = i.gdp_indicator_average;
 					lowerfactor = (lower  / max_indicator_values[0]);
 					lower_year_values = i.gdp_indicator_yearly.split(",");
 				}
