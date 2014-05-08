@@ -129,7 +129,7 @@ function dynamicSort(property) {
 				a[property] ="-1";
 			}
 			
-	        var result = parseInt(a[property]) - parseInt(b[property]);
+	        var result = Number(a[property]) - Number(b[property]);
 	        return result * sortOrder;
 	    }
 	} else {
