@@ -359,9 +359,9 @@
 						d3.select("#hover_bar").selectAll("g").remove()
 						aid_totals = [i.agriculture_total_aid,i.education_total_aid,i.health_total_aid,i.law_and_justice_total_aid,i.water_total_aid]
   						for(ai=0; ai < aid_totals.length; ai++){
-  							if(parseInt(aid_totals[ai]))
+  							if(Number(aid_totals[ai]))
   							{								
-  								aid_totals[ai]=parseInt(aid_totals[ai]);
+  								aid_totals[ai]=Number(aid_totals[ai]);
   							}
   							else
   							{
