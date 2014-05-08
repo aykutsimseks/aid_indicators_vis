@@ -5,6 +5,26 @@
 	var max_indicator_values = [6000,8,80,400,60,100];
 	var box_height = 44;
 	var box_width = 68;
+	var selected = [];
+	
+	function clearSelected()
+	{
+		selected=[];
+	}
+	
+	function toggleCheckBox()
+	{
+		if(selected.length>0)
+		{
+			d3.select("#check_div").style('visibility','visible')
+		}
+		else
+		{
+			d3.select("#check_div").style('visibility','hidden')
+			d3.select("#check_box")[0][0].checked = false;
+		}
+	}
+	
 	function drawDoreen(sortorder , res) 
 	{
 		//"#8A0808", "#B45F04", "#5FB404", "#AEB404", "#0489B1"]
@@ -13,7 +33,8 @@
 		addoption("Aid for reason","-all_total_aid_reason");
 		addoption("Total Aid","-all_total_aid")
 		$("#dropselect").val( sortorder ).prop('selected',true);
-		
+		toggleCheckBox();
+
 		
 		switch(res)
 		{
@@ -105,8 +126,10 @@
 			var file = "data/aid_vis_master_table.csv";
 			d3.csv(file, function(err, cnt) {
 				c = cnt;
-				
-				cnt.forEach(function(i){i.gdp_indicator_yearly = (i.gdp_indicator_yearly.split(",").map(function(x) { return x / i.population; })).join(",")})
+
+				cnt.forEach(function(i){
+	
+				i.gdp_indicator_yearly = (i.gdp_indicator_yearly.split(",").map(function(x) { return x / i.population; })).join(",")})
 				var totalaidreason= 0;
 				var totalaid = 0;
 				switch(sortorder)
@@ -173,13 +196,21 @@
 			 	cnt.sort(dynamicSort(sortorder));
 			 	var count = 0; 
 			 	var h =0;
-			 	var selected = [];
 			 	cnt.forEach(function(i){
-		 
+		 		var divname = "circle_hover"+ "_"+ i.country_code;
+		 					
+				
+				if(d3.select("#check_box")[0][0].checked)
+				{
+					if($.inArray(divname, selected) < 0)
+					{
+						return;
+					}
+				}
+
 				var left = (0) + "px"//((80 * count) + 4) + "px"; 
 				var top = (0) + "px"//((75 * h) + 4) + "px";
 	
-				var divname = "circle_hover"+ "_"+ i.country_code;		
 				var upper, upperfactor,upper_year_values,lower,lowerfactor,lower_year_values;
 				totalaid = i.all_total_aid;
 
@@ -242,8 +273,6 @@
 					lowerfactor = (lower  / max_indicator_values[0]);
 					lower_year_values = i.gdp_indicator_yearly.split(",");
 				}
-				
-
 				 var rec= svg.append("li")
 					.attr("data-country",i.country)
 					.attr("data-code", i.country_code)
@@ -283,7 +312,7 @@
 							
 							d3.select("#hover_totalaidreason")
 							.attr("visibility","visible")
-							.text("Reason Total Aid:      " + 
+							.text("Total " + res + " Aid:      " + 
 							"$" + numberWithCommas(totalaidreason));
 						} else {
 							d3.select("#hover_totalaidreason")
@@ -304,7 +333,20 @@
 						.attr("visibility","visible")
 						.text("Total Aid:            " + 
 						"$" + numberWithCommas(i.all_total_aid));
-			
+						
+						if(res == "Total"){
+								indicator_text =  "$" + numberWithCommas(lower.toFixed(0))
+						}
+						else if(res == "Health")
+						{
+								indicator_text =  Number(lower).toFixed(1)
+						}
+						else{
+								indicator_text =  Number(lower).toFixed(1) + "%";
+						}
+						d3.select("#hover_indicator")
+						  .attr("visibility","visible")
+						  .text(getIndicatorDefShort(res) + " : " +  indicator_text);
 						
 						d3.select("#hover_aidpercapita")
 						.attr("visibility","visible")
@@ -344,13 +386,14 @@
 								.attr("visibility","hidden");
 						d3.select("#hover_clicktoseemore")
 								.attr("visibility","hidden");
-								
+						d3.select("#hover_indicator")
+								.attr("visibility","hidden");		
 						d3.select("#hover_totalaidreason")
 								.attr("visibility","hidden");
 						d3.select("#hover_bar").selectAll("g").remove()
 					})
 					.on("click",  function(d,i) {
-						if($.inArray(d3.select(this).attr("id"), selected) < 0)
+						if($.inArray(d3.select(this).attr("id"), selected) < 0 || d3.select("#check_box")[0][0].checked)
 						{
 							d3.select(this).selectAll("path").style("opacity",.35);
 							selected.push(d3.select(this).attr("id"));
@@ -377,12 +420,15 @@
 								{"value":lower,"norm_value":lowerfactor,"yearly_values":lower_year_values}
 							];
 
-							half_circle_spatial("#"+d3.select(this).attr("id"),yearly_values,glyph_colors,large_height);							
+							half_circle_spatial("#"+d3.select(this).attr("id"),yearly_values,glyph_colors,large_height);
+							toggleCheckBox();							
 						}
 						else
 						{
-														
-							selected.pop(d3.select(this).attr("id"));
+							if(d3.select("#check_box")[0][0].checked==false)
+							{					
+								selected.pop(d3.select(this).attr("id"));
+							}
 							d3.select(this).selectAll("path").style("opacity",.8);
 							d3.select(this)
 								.transition()
@@ -410,6 +456,7 @@
 									break;
 								}
 							}
+							toggleCheckBox();
 						}
 					})
 					.attr("id", divname ); 

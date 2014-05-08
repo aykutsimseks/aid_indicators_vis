@@ -45,6 +45,39 @@ function getIndicatorDef(res){
 
 }
 
+
+function getIndicatorDefShort(res) {
+	var definiton = [
+					  "GDP (per cap.)",
+					  "Agricultural irrigated land",
+					  "Primary completion rate",
+					  "Maternal mortality ratio",
+					  "Informal payments",
+					  "Improved water sources"
+					  ]
+	if(res == "Total" || res == "All" || res == "") {
+		return definiton[0];
+	}
+	else if(res == "Law & Justice" ) {
+		return definiton[4];
+	}
+	else if(res == "Agriculture" ) {
+		return definiton[1];
+	}
+	else if(res == "Water" ) {
+		return definiton[5];
+	}			
+	else if(res == "Health" ) {
+		return definiton[3];
+	}
+	else if(res == "Education" ) {
+		return definiton[2];
+	}
+	return "unknown"
+
+	
+}
+
 function parseDateCustom(str) {
 	str = "01.01." + str;
     var dateParts = str.split(".");

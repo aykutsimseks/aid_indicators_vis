@@ -101,10 +101,17 @@ function half_circle_spatial (elem_id,values,colors,large_height){
       				  .attr('font-family','Amatic SC')
       				  .style("cursor","default")
       				  
-    var value_text = svg.append('text')
-      				  .attr("transform","translate(" + ( - (radius + margin + 40)) + " , " + (- (radius + margin - 66)) + ")")
+    var value_text1 = svg.append('text')
+      				  .attr("transform","translate(" + ( - (radius + margin + 50)) + " , " + (- (radius + margin - 66)) + ")")
       				  .style("fill","#666")
-      				  .style("font-size","12px")
+      				  .style("font-size","10px")
+      				  .style('visibility','hidden')
+      				  .style("cursor","default")
+      				  
+     var value_text2 = svg.append('text')
+      				  .attr("transform","translate(" + ( - (radius + margin + 50)) + " , " + (- (radius + margin - 270)) + ")")
+      				  .style("fill","#666")
+      				  .style("font-size","10px")
       				  .style('visibility','hidden')
       				  .style("cursor","default")
 	
@@ -156,8 +163,28 @@ function half_circle_spatial (elem_id,values,colors,large_height){
 				year_text
 					.text(start_year+i)
 					.style('visibility','visible')
-				value_text
-					.text("$" + numberWithCommas(d.data.toFixed(0)))
+				value_text1
+					.text("Aid per capita : $" + numberWithCommas(d.data.toFixed(0)))
+					.style('visibility','visible')
+				if(colors[1] == "#FFAD33"){
+					val_text =  getIndicatorDefShort("Total")  + " : " + "$" + numberWithCommas(values[1]["yearly_values"][i].toFixed(0))
+				}else if(colors[1] == "#A03737"){
+					val_text =  getIndicatorDefShort("Health")  + " : " + values[1]["yearly_values"][i].toFixed(0)
+				} 
+				else if(colors[1] == "#6FBC1D"){
+					val_text =  getIndicatorDefShort("Agriculture")  + " : " + values[1]["yearly_values"][i].toFixed(0) + "%"
+				}
+				else if(colors[1] == "#BC6F1D"){
+					val_text =  getIndicatorDefShort("Education")  + " : " + values[1]["yearly_values"][i].toFixed(0) + "%"
+				}
+				else if(colors[1] == "#B6BC1D"){
+					val_text =  getIndicatorDefShort("Law \& Justice")  + " : " + values[1]["yearly_values"][i].toFixed(0) + "%"
+				}
+				else if(colors[1] == "#1D95B9"){
+					val_text = getIndicatorDefShort("Water")  + " : " +  values[1]["yearly_values"][i].toFixed(0) + "%"
+				}
+				value_text2
+					.text(val_text)
 					.style('visibility','visible')
 			}
        })
@@ -167,14 +194,17 @@ function half_circle_spatial (elem_id,values,colors,large_height){
        			d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
        			d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
        			year_text.style('visibility','hidden')
-       			value_text.style('visibility','hidden')
+       			value_text1.style('visibility','hidden')
+       			value_text2.style('visibility','hidden')
        		}
        })
        .on("click",function(d,i) {
+       		/*
        		svg.selectAll(".arc0").style("opacity",.7);
        		svg.selectAll(".arc1").style("opacity",.7);
        		year_text.style('visibility','hidden')
-       		value_text.style('visibility','hidden')
+       		value_text1.style('visibility','hidden')
+       		value_text2.style('visibility','hidden')
        		if(!arc_lock)
        		{
        			arc_lock = true;
@@ -183,7 +213,10 @@ function half_circle_spatial (elem_id,values,colors,large_height){
 				year_text
 					.text(start_year+i)
 					.style('visibility','visible')
-				value_text
+				value_text1
+					.text(d.data.toFixed(1))
+					.style('visibility','visible')
+				value_text2
 					.text(d.data.toFixed(1))
 					.style('visibility','visible')
        		}
@@ -191,6 +224,7 @@ function half_circle_spatial (elem_id,values,colors,large_height){
        		{
        			arc_lock = false;
        		}
+       		*/
        })
        
       .transition().delay(function(d, i) { return i * 10; }).duration(10)
@@ -221,11 +255,26 @@ function half_circle_spatial (elem_id,values,colors,large_height){
 					.text(start_year+i)
 					.style('visibility','visible')
 				if(colors[1] == "#FFAD33"){
-					val_text =  "$" + numberWithCommas(d.data.toFixed(0))
-				} else{
-					val_text =  d.data.toFixed(1)
+					val_text =  getIndicatorDefShort("Total")  + " : " + "$" + numberWithCommas(d.data.toFixed(0))
+				}else if(colors[1] == "#A03737"){
+					val_text =  getIndicatorDefShort("Health")  + " : " + d.data.toFixed(0)
+				} 
+				else if(colors[1] == "#6FBC1D"){
+					val_text =  getIndicatorDefShort("Agriculture")  + " : " + d.data.toFixed(0) + "%"
 				}
-				value_text
+				else if(colors[1] == "#BC6F1D"){
+					val_text =  getIndicatorDefShort("Education")  + " : " + d.data.toFixed(0) + "%"
+				}
+				else if(colors[1] == "#B6BC1D"){
+					val_text =  getIndicatorDefShort("Law \& Justice")  + " : " + d.data.toFixed(0) + "%"
+				}
+				else if(colors[1] == "#1D95B9"){
+					val_text = getIndicatorDefShort("Water")  + " : " +  d.data.toFixed(0) + "%"
+				}
+				value_text1
+					.text("Aid per capita : $" + numberWithCommas(values[0]["yearly_values"][i].toFixed(0)))
+					.style('visibility','visible')
+				value_text2
 					.text(val_text)
 					.style('visibility','visible')
 			}
@@ -236,7 +285,8 @@ function half_circle_spatial (elem_id,values,colors,large_height){
        			d3.select("body").selectAll("#sah1_" + i).style("opacity",.7);
        			d3.select("body").selectAll("#sah0_" + i).style("opacity",.7);
        			year_text.style('visibility','hidden')
-       			value_text.style('visibility','hidden')
+       			value_text1.style('visibility','hidden')
+       			value_text2.style('visibility','hidden')
        		}
        })
        .on("click",function(d,i) {
