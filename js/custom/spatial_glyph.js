@@ -164,7 +164,7 @@ function half_circle_spatial (elem_id,values,colors,large_height){
 					.text(start_year+i)
 					.style('visibility','visible')
 				value_text1
-					.text("Aid per capita : $" + numberWithCommas(d.data.toFixed(0)))
+					.text("Aid received: $" + numberWithCommas(d.data.toFixed(0)))
 					.style('visibility','visible')
 				if(colors[1] == "#FFAD33"){
 					val_text =  getIndicatorDefShort("Total")  + " : " + "$" + numberWithCommas(values[1]["yearly_values"][i].toFixed(0))
