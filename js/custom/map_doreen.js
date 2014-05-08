@@ -334,7 +334,7 @@
 						.text("Total Aid:            " + 
 						"$" + numberWithCommas(i.all_total_aid));
 						
-						if(res == "Total"){
+						if(res == "Total" || res == "All" || res == ""){
 								indicator_text =  "$" + numberWithCommas(lower.toFixed(0))
 						}
 						else if(res == "Health")
